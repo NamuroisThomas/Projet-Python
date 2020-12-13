@@ -48,8 +48,27 @@ class Questions:
 
             return question_base
 
+    def recherche_questions(self):
 
-    def ajout_question(choix_theme,ma_question,ma_reponse):
+        try:
+            with open('./questions/questions.json') as fichier_question:
+                question = json.load(fichier_question)
+                #choix_theme = input("veuillez choisir entre les 3 thème suivant : geographie,informatique et histoire  : ")
+                #ma_question = input("posez votre question : ")
+                #ma_reponse = input("posez votre réponse : ")
+
+        except FileNotFoundError:
+            print('Fichier introuvable.')
+        except IOError:
+            print('Erreur IO.')
+
+        self.retour = [question]
+        return self.retour
+
+
+
+
+    def ajout_question( choix_theme : str   ,ma_question : str   ,ma_reponse : str   ):
 
         try:
             with open('./questions/questions.json') as fichier_question:
