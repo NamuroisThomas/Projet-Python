@@ -29,7 +29,7 @@ class utilisateur:
         return self.__prenom
 
 
-    def sauvegarde_utilisateur(nom : str,prenom : str , utilisateur : str):
+    def sauvegarde_utilisateur( nom :str,prenom : str,utilisateur : str  ):
 
         """
         Cette fonction me permet de sauvegarder mes utilisateurs dans un fichier csv
@@ -58,29 +58,18 @@ class utilisateur:
                 sauvegarde = csv.writer(fichier_Utilisateur)
                 sauvegarde.writerow(donne)
 
-
-
-
-
-
         except FileNotFoundError:
             print('Fichier introuvable.')
 
         except IOError:
             print('Erreur IO.')
 
-
-
-
-
-
-
     def recuperation_utilisateur():
 
 
         try:
 
-            with open("./utilisateur_sauvegarde/utilisateur.csv","r") as fichier_sauvegarde_utilisateur:
+            with open("./utilisateur_sauvegarde/utilisateur.csv","r",newline='') as fichier_sauvegarde_utilisateur:
                 utilisateur_sauvegarde = csv.reader(fichier_sauvegarde_utilisateur)
                 for r in utilisateur_sauvegarde:
                     print(r)
