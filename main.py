@@ -4,62 +4,9 @@ import Utilisateur
 import Question
 import json
 import threading
+import Jeu
 
 
-def demarrage_jeu():
-    message_bienvenue = "Bienvenue dans notre Quizz Générale "
-    return message_bienvenue
-
-
-def renseignement():
-
-    nom = input("Veuillez donner votre Nom :")
-    prenom = input("Veuillez donner votre Prénom :")
-    utilisateur = input("veuillez donner votre Pseudo :")
-    Utilisateur.utilisateur.sauvegarde_utilisateur(nom,prenom,utilisateur)
-
-
-
-    return f"Vous avez bien été ajouter à notre liste"
-
-
-def recherche_question():
-    with open('./questions/questions.json') as json_question:
-        test = json.load(json_question)
-        question = dict(test)
-        print(question)
-
-    score = 0
-    choix_theme = input("Veuillez choisir entre les 3 thème suivant : geographie,informatique et histoire  : ")
-
-    while True:
-        for theme in question.keys():
-            if theme == choix_theme:
-                for questions in question[choix_theme]:  # parcour les thèmes de notre quizz , afin de lancer les questions correspondant au thème choisis
-
-                    questions_demande = input(f"{questions[0]}\n,veuillez choisir la lettre correspondant à la réponses  :  ")  # correspond a nos questions
-                    # cette condition nous permet de vérifier si la réponse a cette question égale a nos reponses définis avant
-                    if questions_demande == questions[1]:
-
-
-                        score += 1
-                        print(f"votre score est de {score} / {len(question[choix_theme])}")
-
-                    else:
-
-                        print("mauvaise réponse")
-                        print(f"la bonne réponse étais : {questions[1]}")
-
-                break
-
-            choix_theme = input("veuillez choisir entre les 3 thème suivant : geographie,informatique et histoire  : ")
-
-
-            ajout_question = print("Voulez vous ajoutez une question ? oui ou non : ")
-            if ajout_question == "oui":
-                ajout_Question()
-
-        return score
 
 def ajout_Question():
 
@@ -68,6 +15,45 @@ def ajout_Question():
     reponse = input("Donner la lettre de la réponse : ")
 
     Question.Questions.ajout_question(str(theme), question, reponse)
+
+
+
+
+
+
+
+def commencer_jeu():
+    message_bienvenu = "Bienvenue dans notre Quizz Générale "
+    print(message_bienvenu)
+
+    nom = input("Veuillez donner votre Nom :")
+    prenom = input("Veuillez donner votre Prénom :")
+    pseudo = input("veuillez donner votre Pseudo :")
+
+    jeu = JEux(nom, prenom, pseudo)
+    jeu.setPartie()
+    #print(jeu.getPartie[0].getQuestion())
+
+    score = 0
+    for i in jeu.getPartie:
+        questions_demande = input(f"{i.getQuestion()}{i.getReponseA()}{i.getReponseB()}{i.getReponseC()}\n,veuillez choisir la lettre correspondant à la réponses  :  ")  # correspond a nos questions
+        # cette condition nous permet de vérifier si la réponse a cette question égale a nos reponses définis avant
+        if questions_demande == i.getReponse():
+
+            score += 1
+            print("bonne réponse")
+
+        else:
+
+            print("mauvaise réponse")
+            print(f"la bonne réponse étais : {i.getReponse()}")
+
+    print(f"votre score est de {score} / {len(jeu.getPartie)}")
+
+
+if __name__ == "__main__":
+    commencer_jeu()
+    enregistrerPartie()
 
 
 if __name__ == "__main__":
