@@ -1,3 +1,4 @@
+
 from kivy.app import App
 from kivy.config import Config
 from kivy.uix.boxlayout import BoxLayout
@@ -8,13 +9,23 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.checkbox import CheckBox
 from kivy.uix.spinner import Spinner
 
-import Utilisateur
+import Model.Utilisateurs
 import json
-import Question
+import Model.Question
+import Model.Partie
+import Presenter.Controle
+from Model.JEux import JEux
 
 
 class Quizz(App):
     def build(self):
+
+        """
+        Cette construction me permet avoir les boutons qui me permetterons soit de jouer , ajouter une question
+        :return interface avec les Wideget ajoutés
+
+        """
+
 
         self.title = "Quizz Générale"
         self.quizz = BoxLayout(orientation='vertical')
@@ -27,11 +38,9 @@ class Quizz(App):
         lancer.bind(on_press=self.commencer)
         self.quizz.add_widget(lancer)
 
-        renseignement = Button(text="Enregistrer vos données",background_color=(128,0, 128, 255))
-        renseignement.bind(on_press=self.renseignement)
-        self.quizz.add_widget(renseignement)
 
-        ajout_question = Button(text="Ajouter Question",background_color=(128,0, 128, 255))
+
+        ajout_question = Button(text="Ajouter Question",background_color=(0, 1, 1, 1))
         ajout_question.bind(on_press=self.ajout_Question)
         self.quizz.add_widget(ajout_question)
 
@@ -40,8 +49,15 @@ class Quizz(App):
 
 
     def ajout_Question(self,instance):
+        """
+        cette fonction me permet de rajouter une question
 
-        with open('./questions/questions.json') as json_question:
+        :param instance: ce paramètre me permet de recevoir les instances autre classes et ainsi utiliser leurs variable
+        :return:-
+        """
+
+
+        with open('../questions/questions.json') as json_question:
             test = json.load(json_question)
             question = dict(test)
             print(question)
@@ -50,10 +66,22 @@ class Quizz(App):
         self.theme = TextInput(text="")
         self.quizz.add_widget(self.theme)
 
-
         self.quizz.add_widget(Label(text = "Question :  "))
         self.question = TextInput(text="")
         self.quizz.add_widget(self.question)
+
+
+        self.quizz.add_widget(Label(text = "Première proposition :  "))
+        self.proposition1 = TextInput(text="")
+        self.quizz.add_widget(self.proposition1)
+
+        self.quizz.add_widget(Label(text = "Deuxième proposition :  "))
+        self.proposition2 = TextInput(text="")
+        self.quizz.add_widget(self.proposition2)
+
+        self.quizz.add_widget(Label(text = "Troisième proposition  "))
+        self.proposition3 = TextInput(text="")
+        self.quizz.add_widget(self.proposition3)
 
         self.quizz.add_widget(Label(text = "Réponse"))
         self.reponse = TextInput(text="")
@@ -64,8 +92,13 @@ class Quizz(App):
         self.quizz.add_widget(self.ajout)#rajouter le bouton
 
     def ajout_nouvelle_question(self,instance):
+        """
+        cette fonction me permet ajouter une question
+        :param instance: -
+        :return: Appelle objet et sa fonction qui me permet ajouter une question
+        """
 
-        Question.Questions.ajout_question(self.theme.text,self.question.text,self.reponse.text)
+        Model.Question.Question.ajout_question(self.theme.text,self.question.text,self.proposition1.text,self.proposition2.text,self.proposition3.text,self.reponse.text)
 
 
 
@@ -74,7 +107,13 @@ class Quizz(App):
 
 
 
-    def renseignement(self,instance):
+    def commencer(self,instance):
+        """
+        cette fonction me permet ajouter les renseignement
+
+        :param instance: -
+        :return: appelle le quizz
+        """
 
         self.quizz.add_widget(Label(text = "Nom : "))#simplement une case qui affiche un message
         self.nom = TextInput(text="")#un input dans lequel je peut insérer mes données
@@ -85,8 +124,8 @@ class Quizz(App):
         self.quizz.add_widget(self.prenom)
 
         self.quizz.add_widget(Label(text = "Pseudo : "))
-        self.utilisateur = TextInput(text="")
-        self.quizz.add_widget(self.utilisateur)
+        self.pseudo = TextInput(text="")
+        self.quizz.add_widget(self.pseudo)
 
         self.envoy = Button(text="envoie",font_size=40)#un boutonde avec un nom et une taille
         self.envoy.bind(on_press=self.valider)#à l'evenement presse , j'apelle une méthode valider
@@ -99,18 +138,32 @@ class Quizz(App):
 
         nom = self.nom.text#texte me permet de récuper la valeur d'un input
         prenom = self.prenom.text
-        utilisateur = self.utilisateur.text
+        pseudo = self.pseudo.text
 
-        print(f"votre nom : {nom} et Prénom : {prenom} , pseudo {utilisateur}")
+        print(f"votre nom : {nom} et Prénom : {prenom} , pseudo {pseudo}")
 
-        Utilisateur.utilisateur.sauvegarde_utilisateur(nom,prenom,utilisateur)
+        if nom and prenom and pseudo == "" :
+            print("champs vides")
+
+        else:
+            Model.Utilisateurs.Utilisateurs.sauvegarde_utilisateur(nom,prenom,pseudo)
+            #me permet ajouter un utilisateur dans un fichier csv
+            return self.jouer()
 
 
-    def commencer(self,instance):
+    def jouer(self):
+
+        """
+        cette fonction est mon quizz en lui même
+        :return:
+        """
+        self.score = 0
+
 
         self.quizz.add_widget(Label(text='Choisissez un Thème : '))
         spinner = Spinner(text="Les thèmes ",
         values = ('geographie','histoire','informatique'))
+        #liste déroulante avec 3 valeurs qui représentes mes thèmes
         self.quizz.add_widget(spinner)
 
         self.spinnerSelectionner = Label(text=f"le thème sélectioné est {spinner}")
@@ -120,178 +173,62 @@ class Quizz(App):
         return self.quizz
 
     def spinner_selectionner_valeur(self,spinner,text):
+        """
+        Cette fonction lance les questions par rapport au thème choisis
 
-        with open('./questions/questions.json') as json_question:
-            test = json.load(json_question)
-            question = dict(test)
-
-            self.question = question
-            self.score = 0
-            self.mauvaise = []
-
-            for theme in question.keys():#je parcours les thèmes
-                if text == theme:
-                    self.theme = text
-
-                    for mes_questions in question[text]:
-                        self.nombre_question = mes_questions
-
-                        self.mes_question = mes_questions[0]#je crée cette méthode pour l'utiliser dans une autre fonction
-                        self.reponse = mes_questions[1]
+        :param spinner: la liste déroulantes qui contient les thèmes
+        :param text: le thème choisis
+        :return:-
+        """
 
 
+        fichier_question = Model.Partie.Partie.accesFichierQuestion(self)
+        #une classe qui me permet de récupérer les questions
 
-                        self.demande_question = Spinner(text = mes_questions[0],values=('a','b','c'))#permet de crée une liste avec les réponses à la question
-                        self.quizz.add_widget(self.demande_question)#j'ajoute ma liste déroulante
+        self.taille_question = []
+        #me peremt ajouter les questions pour puvoir mesurer leur taille
 
-                        self.validation_reponse = Button(text="Valider mes réponses")
-                        self.validation_reponse.bind(on_press=self.validation)
-                        self.quizz.add_widget(self.validation_reponse)
+        for theme in fichier_question.keys():#parcours les clée de mon dictionnaire qui contient les questions
+            if text == theme:#si mon thème choisis via ma liste déroulante est égale à une de mes clées
 
-                    self.voir_score = Button(text="Score")
-                    self.voir_score.bind(on_press=self.voir_mon_score)
-                    self.quizz.add_widget(self.voir_score)
+                for ma_question in fichier_question[text]:#parcours les questions par rapport au clées
 
-            return self.quizz
+                    demande_question = Spinner(text=f"{ma_question[0]},veuillez choisir la lettres correspondante.",
+                                                    font_size ="15sp",
+                                                    values=('a','b','c')
+                                                    )
 
-    def validation(self,instance):
+                    #une liste déroulantes qui affiche les questions
 
-        if self.demande_question.text == self.reponse:
+                    self.reponse = ma_question[1]
+                    self.taille_question.append(ma_question[0])
 
-            print("yo")
-            self.score +=1
+                    self.quizz.add_widget(demande_question)
+                    demande_question.bind(text=self.validation)
+
+
+
+    def validation(self,demande_question,text):
+        """
+        cette fonction me permet de valider une réponse
+        :param demande_question:la liste déroulante de la question qui contient les 3 valeurs (a,b,c)
+        :param text:la réponses choisis
+        :return: une label qui contient le score sur le nombre de question
+        """
+
+        if text == self.reponse:
+            self.score += 1
             print(self.score)
 
-
         else:
+            print("Mauvaise réponse")
 
-            print("mauvais")
 
-
-        return f"{self.score} /  {len(self.nombre_question)}"
-
-    def voir_mon_score(self,instance):
-        self.quizz.add_widget(Label(text=f"{self.score} /  {len(self.nombre_question)}"))
-
+        return self.quizz.add_widget(Label(text=f"{self.score} / {len(self.taille_question)}"))
 
 def demarrage_interface():
 
     Quizz().run()
     #Ajout_Question()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-"""
-class Renseignement(GridLayout):
-    def __init__(self,**Kwargs):
-        super().__init__(**Kwargs)
-        self.cols = 2 #ma page est divisé en deux colonne
-
-        self.add_widget(Label(text = "Nom : "))#simplement une case qui affiche un message
-        self.nom = TextInput(text="")#un input dans lequel je peut insérer mes données
-        self.add_widget(self.nom)#rajoute le Textinput dans la 2ème colonne
-
-        self.add_widget(Label(text = "Prénom : "))
-        self.prenom = TextInput(text="")
-        self.add_widget(self.prenom)
-
-        self.add_widget(Label(text = "Pseudo : "))
-        self.pseudo = TextInput(text="")
-        self.add_widget(self.pseudo)
-
-        self.envoy = Button(text="envoie",font_size=40)#un boutonde avec un nom et une taille
-        self.envoy.bind(on_press=self.valider)#à l'evenement presse , j'apelle une méthode valider
-
-        self.add_widget(self.envoy)#rajouter le bouton
-
-
-    def valider(self,instance):
-
-
-        nom = self.nom.text#texte me permet de récuper la valeur d'un input
-        prenom = self.prenom.text
-        pseudo = self.pseudo.text
-
-        print(f"votre nom : {nom} et Prénom : {prenom} , pseudo {pseudo}")
-
-        Utilisateur.utilisateur.sauvegarde_utilisateur(nom,prenom,pseudo)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class Ajout_Question(GridLayout):
-
-    def __init__(self,**Kwargs):
-        super().__init__(**Kwargs)
-        self.cols = 2 #ma page est divisé en deux colonne
-
-        with open('./questions/questions.json') as json_question:
-            test = json.load(json_question)
-            question = dict(test)
-            print(question)
-
-        self.add_widget(Label(text = "Dans Quelle thème ? : "))#simplement une case qui affiche un message
-        self.theme = TextInput(text="")#un input dans lequel je peut insérer mes données
-        self.add_widget(self.theme)#rajoute le Textinput dans la 2ème colonne
-
-
-        self.add_widget(Label(text = "Question :  "))
-        self.question = TextInput(text="")
-        self.add_widget(self.question)
-
-        self.add_widget(Label(text = "Réponse"))
-        self.reponse = TextInput(text="")
-        self.add_widget(self.reponse)
-
-        self.ajout = Button(text="ajouter",font_size=40)#un boutonde avec un nom et une taille
-        self.ajout.bind(on_press=self.ajout_nouvelle_question)#à l'evenement presse , j'apelle une méthode valider
-        self.add_widget(self.ajout)#rajouter le bouton
-
-    def ajout_nouvelle_question(self,instance):
-
-        theme = self.theme.text
-        question = self.question.text
-        reponse = self.reponse.text
-
-        print(f"Pour ce thème {theme} , vous avez ajouter cette question : {question} et sa réponse : {reponse}")
-
-        Question.Questions.ajout_question(theme,question,reponse)
-
-
-"""
-
-
-
-
-
-
-
-
 
 
