@@ -78,8 +78,8 @@ def ajout_question():
 
 if __name__ == "__main__":
 
-    #thread = threading.Thread(target=Gui.demarrage_interface())
-    #thread.start()
+    thread = threading.Thread(target=Gui.demarrage_interface())
+    thread.start()
 
-    commencer_jeu()
+    #commencer_jeu()
     #jouer()
