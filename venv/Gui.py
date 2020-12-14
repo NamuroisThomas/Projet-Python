@@ -17,6 +17,7 @@ import Presenter.Controle
 from Model.JEux import JEux
 
 
+
 class Quizz(App):
     def build(self):
 
@@ -70,19 +71,6 @@ class Quizz(App):
         self.question = TextInput(text="")
         self.quizz.add_widget(self.question)
 
-
-        self.quizz.add_widget(Label(text = "Première proposition :  "))
-        self.proposition1 = TextInput(text="")
-        self.quizz.add_widget(self.proposition1)
-
-        self.quizz.add_widget(Label(text = "Deuxième proposition :  "))
-        self.proposition2 = TextInput(text="")
-        self.quizz.add_widget(self.proposition2)
-
-        self.quizz.add_widget(Label(text = "Troisième proposition  "))
-        self.proposition3 = TextInput(text="")
-        self.quizz.add_widget(self.proposition3)
-
         self.quizz.add_widget(Label(text = "Réponse"))
         self.reponse = TextInput(text="")
         self.quizz.add_widget(self.reponse)
@@ -98,7 +86,7 @@ class Quizz(App):
         :return: Appelle objet et sa fonction qui me permet ajouter une question
         """
 
-        Model.Question.Question.ajout_question(self.theme.text,self.question.text,self.proposition1.text,self.proposition2.text,self.proposition3.text,self.reponse.text)
+        Model.Question.Question.ajout_question(self.theme.text,self.question.text,self.reponse.text)
 
 
 
@@ -138,15 +126,15 @@ class Quizz(App):
 
         nom = self.nom.text#texte me permet de récuper la valeur d'un input
         prenom = self.prenom.text
-        pseudo = self.pseudo.text
 
-        print(f"votre nom : {nom} et Prénom : {prenom} , pseudo {pseudo}")
+
+        print(f"votre nom : {nom} et Prénom : {prenom} , pseudo {self.pseudo.text}")
 
         if nom and prenom and pseudo == "" :
             print("champs vides")
 
         else:
-            Model.Utilisateurs.Utilisateurs.sauvegarde_utilisateur(nom,prenom,pseudo)
+            Model.Utilisateurs.Utilisateurs.sauvegarde_utilisateur(nom,prenom,self.pseudo.text)
             #me permet ajouter un utilisateur dans un fichier csv
             return self.jouer()
 
@@ -191,6 +179,8 @@ class Quizz(App):
         for theme in fichier_question.keys():#parcours les clée de mon dictionnaire qui contient les questions
             if text == theme:#si mon thème choisis via ma liste déroulante est égale à une de mes clées
 
+                self.theme = text
+
                 for ma_question in fichier_question[text]:#parcours les questions par rapport au clées
 
                     demande_question = Spinner(text=f"{ma_question[0]},veuillez choisir la lettres correspondante.",
@@ -209,6 +199,7 @@ class Quizz(App):
 
 
     def validation(self,demande_question,text):
+
         """
         cette fonction me permet de valider une réponse
         :param demande_question:la liste déroulante de la question qui contient les 3 valeurs (a,b,c)
@@ -223,12 +214,11 @@ class Quizz(App):
         else:
             print("Mauvaise réponse")
 
-
         return self.quizz.add_widget(Label(text=f"{self.score} / {len(self.taille_question)}"))
 
 def demarrage_interface():
 
-    Quizz().run()
+    #Quizz().run()
     #Ajout_Question()
 
 

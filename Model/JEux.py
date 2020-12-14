@@ -2,6 +2,7 @@ from Model.Utilisateurs import Utilisateurs
 from Model.Partie import Partie
 
 
+
 class JEux:
 
 
@@ -14,7 +15,6 @@ class JEux:
         Cela construit une partie basée sur un utilisateur , sa partie,son score
         PRE: utilisateur est une appelle une autre classe , la partie est aussi un appelle,et le score est un entier
         POST:-
-        
         
         """
 
@@ -39,3 +39,5 @@ class JEux:
         POST:-
         
         """
+
+

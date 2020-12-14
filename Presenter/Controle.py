@@ -2,9 +2,11 @@ import threading
 from Model.JEux import JEux
 import Gui
 import Model.Utilisateurs
+import Model.Question
 
 
 def commencer_jeu():
+
     """
     cette fonction me permet de recevoir les renseignements et ensuite de jouer
 
@@ -18,11 +20,13 @@ def commencer_jeu():
     prenom = input("Veuillez donner votre Prénom :")
     pseudo = input("veuillez donner votre Pseudo :")
 
+
     return jouer(nom,prenom,pseudo)
 
 
 def jouer(nom, prenom, pseudo):
-    Model.Utilisateurs.Utilisateurs.sauvegarde_utilisateur(nom, prenom, pseudo)
+    print(f" {pseudo},Bonne partie ")
+
 
 
     """
@@ -31,7 +35,7 @@ def jouer(nom, prenom, pseudo):
     :param nom: nom du joueur
     :param prenom: prénom du joueur
     :param pseudo: pseudo du joueur
-    :return:*
+    :return:
     """
 
     jeu = JEux(nom, prenom, pseudo)
@@ -41,7 +45,7 @@ def jouer(nom, prenom, pseudo):
 
     score = 0
     for questions in jeu.getPartie: #parcours le tableau de questions
-        questions_demande = input(f"{questions.getQuestion()}{questions.getReponseA()}{questions.getReponseB()}{questions.getReponseC()}\n,veuillez choisir la lettre correspondant à la réponses  :  ")  # correspond a nos questions
+        questions_demande = input(f"{questions.getQuestion()}\n,veuillez choisir la lettre correspondant à la réponses  :  ")  # correspond a nos questions
         # cette condition nous permet de vérifier si la réponse a cette question égale a nos reponses définis avant
         if questions_demande == questions.getReponse():
 
@@ -55,14 +59,27 @@ def jouer(nom, prenom, pseudo):
 
     print(f"votre score est de {score} / {len(jeu.getPartie)}")
 
+    ajouter_question = input("voulez vous ajoutez une question ? oui ou non :")
+    if ajouter_question == "oui":
+        ajout_question()
+
+    else:
+        quit()
 
 
+def ajout_question():
 
+    theme = input("Dans quelle thème voulez-vous l'ajouter ? : ")
+    question = input("Quelle question voulez-vous ajouter ainsi que ses propositions ? : ")
+    reponse = input("Quelle est la lettre correspondants à la question ? : ")
 
+    Model.Question.Question.ajout_question(theme,question,reponse)
 
 
 if __name__ == "__main__":
-    thread = threading.Thread(target=Gui.demarrage_interface())
-    thread.start()
-    #commencer_jeu()
+
+    #thread = threading.Thread(target=Gui.demarrage_interface())
+    #thread.start()
+
+    commencer_jeu()
     #jouer()

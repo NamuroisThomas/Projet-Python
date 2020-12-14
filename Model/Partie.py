@@ -1,6 +1,5 @@
 import json
 
-
 from Model.Question import Question
 
 
@@ -14,17 +13,12 @@ class Partie:
         Cela construit une partie par apport a son thème et ses questions
         PRE: -
         POST:-
-        
-        
         """
-
-
-
 
     def setTheme(self):
 
         """
-        Cette fonction permet la vérification du thème entré
+        Cette fonction permet la vérification du thème entrée
         PRE: -
         POST:-
 
@@ -53,10 +47,7 @@ class Partie:
         for numQuestion in question[self.__theme]:
             ajout = Question(
                 numQuestion[0],
-                numQuestion[1],
-                numQuestion[2],
-                numQuestion[3],
-                numQuestion[4]
+                numQuestion[1]
             )
             self.insertQuestion(ajout)
 
@@ -64,27 +55,14 @@ class Partie:
         self.__tableauQuestion.append(question)
 
     def accesFichierQuestion(self):
+        """
+        Cette fonction permet accéder au questions
+        PRE: -
+        POST:renvoie le dictionnaire de questions
+
+        """
+
         with open('../questions/questions.json') as json_question:
             test = json.load(json_question)
             question = dict(test)
         return question
-"""""
-    def lanceQuestion(self):
-        score = 0
-        question = self.accesFichierQuestion()
-        for questions in question[self.__theme]:
-
-            questions_demande = input(
-                f"{questions[0]}{questions[1]}{questions[2]}{questions[3]}\n"
-                f",veuillez choisir la lettre correspondant à la réponses  :  ")  # correspond a nos questions
-            # cette condition nous permet de vérifier si la réponse a cette question égale a nos reponses définis avant
-            if questions_demande == questions[4]:
-
-                score += 1
-                print(f"votre score est de {score} / {len(question[self.__theme])}")
-
-            else:
-
-                print("mauvaise réponse")
-                print(f"la bonne réponse étais : {questions[4]}")
-"""""
