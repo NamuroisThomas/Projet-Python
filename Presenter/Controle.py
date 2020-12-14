@@ -1,6 +1,6 @@
 import threading
 from Model.JEux import JEux
-import Gui
+from View import Gui
 import Model.Utilisateurs
 
 
@@ -64,5 +64,5 @@ def jouer(nom, prenom, pseudo):
 if __name__ == "__main__":
     thread = threading.Thread(target=Gui.demarrage_interface())
     thread.start()
-    #commencer_jeu()
+    commencer_jeu()
     #jouer()
