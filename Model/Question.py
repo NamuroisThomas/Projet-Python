@@ -34,7 +34,7 @@ class Question:
         """
 
         try:
-            with open('../questions/questions.json') as fichier_question:
+            with open('../questions/questions.json',encoding="utf-8") as fichier_question:
                 question = json.load(fichier_question)
 
                 question[choix_theme].extend([[ma_question,proposition1,proposition2,proposition3,ma_reponse]])
