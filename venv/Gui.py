@@ -20,6 +20,12 @@ from Model.JEux import JEux
 class Quizz(App):
     def build(self):
 
+        """
+        Cette construction me permet avoir les boutons qui me permetterons soit de jouer , ajouter une question
+        :return interface avec les Wideget ajoutés
+
+        """
+
 
         self.title = "Quizz Générale"
         self.quizz = BoxLayout(orientation='vertical')
@@ -34,7 +40,7 @@ class Quizz(App):
 
 
 
-        ajout_question = Button(text="Ajouter Question",background_color=(128,0, 128, 255))
+        ajout_question = Button(text="Ajouter Question",background_color=(0, 1, 1, 1))
         ajout_question.bind(on_press=self.ajout_Question)
         self.quizz.add_widget(ajout_question)
 
@@ -43,6 +49,13 @@ class Quizz(App):
 
 
     def ajout_Question(self,instance):
+        """
+        cette fonction me permet de rajouter une question
+
+        :param instance: ce paramètre me permet de recevoir les instances autre classes et ainsi utiliser leurs variable
+        :return:-
+        """
+
 
         with open('../questions/questions.json') as json_question:
             test = json.load(json_question)
@@ -79,8 +92,13 @@ class Quizz(App):
         self.quizz.add_widget(self.ajout)#rajouter le bouton
 
     def ajout_nouvelle_question(self,instance):
+        """
+        cette fonction me permet ajouter une question
+        :param instance: -
+        :return: Appelle objet et sa fonction qui me permet ajouter une question
+        """
 
-        Question.Question.ajout_question(self.theme.text,self.question.text,self.proposition1.text,self.proposition2.text,self.proposition3.text,self.reponse.text)
+        Model.Question.Question.ajout_question(self.theme.text,self.question.text,self.proposition1.text,self.proposition2.text,self.proposition3.text,self.reponse.text)
 
 
 
@@ -90,6 +108,12 @@ class Quizz(App):
 
 
     def commencer(self,instance):
+        """
+        cette fonction me permet ajouter les renseignement
+
+        :param instance: -
+        :return: appelle le quizz
+        """
 
         self.quizz.add_widget(Label(text = "Nom : "))#simplement une case qui affiche un message
         self.nom = TextInput(text="")#un input dans lequel je peut insérer mes données
@@ -123,16 +147,23 @@ class Quizz(App):
 
         else:
             Model.Utilisateurs.Utilisateurs.sauvegarde_utilisateur(nom,prenom,pseudo)
-            return self.jouer() #Presenter.Controle.jouer(nom,prenom,pseudo),
+            #me permet ajouter un utilisateur dans un fichier csv
+            return self.jouer()
 
 
     def jouer(self):
+
+        """
+        cette fonction est mon quizz en lui même
+        :return:
+        """
         self.score = 0
 
 
         self.quizz.add_widget(Label(text='Choisissez un Thème : '))
         spinner = Spinner(text="Les thèmes ",
         values = ('geographie','histoire','informatique'))
+        #liste déroulante avec 3 valeurs qui représentes mes thèmes
         self.quizz.add_widget(spinner)
 
         self.spinnerSelectionner = Label(text=f"le thème sélectioné est {spinner}")
@@ -142,20 +173,34 @@ class Quizz(App):
         return self.quizz
 
     def spinner_selectionner_valeur(self,spinner,text):
+        """
+        Cette fonction lance les questions par rapport au thème choisis
+
+        :param spinner: la liste déroulantes qui contient les thèmes
+        :param text: le thème choisis
+        :return:-
+        """
+
+
         fichier_question = Model.Partie.Partie.accesFichierQuestion(self)
+        #une classe qui me permet de récupérer les questions
 
         self.taille_question = []
+        #me peremt ajouter les questions pour puvoir mesurer leur taille
 
-        for theme in fichier_question.keys():
-            if text == theme:
+        for theme in fichier_question.keys():#parcours les clée de mon dictionnaire qui contient les questions
+            if text == theme:#si mon thème choisis via ma liste déroulante est égale à une de mes clées
 
-                for ma_question in fichier_question[text]:
-                    demande_question = Spinner(text=f"{ma_question[0]}{ma_question[1]},{ma_question[2]},{ma_question[3]},veuillez choisir la lettres correspondante.",
+                for ma_question in fichier_question[text]:#parcours les questions par rapport au clées
 
+                    demande_question = Spinner(text=f"{ma_question[0]},veuillez choisir la lettres correspondante.",
                                                     font_size ="15sp",
                                                     values=('a','b','c')
                                                     )
-                    self.reponse = ma_question[-1]
+
+                    #une liste déroulantes qui affiche les questions
+
+                    self.reponse = ma_question[1]
                     self.taille_question.append(ma_question[0])
 
                     self.quizz.add_widget(demande_question)
@@ -164,7 +209,12 @@ class Quizz(App):
 
 
     def validation(self,demande_question,text):
-
+        """
+        cette fonction me permet de valider une réponse
+        :param demande_question:la liste déroulante de la question qui contient les 3 valeurs (a,b,c)
+        :param text:la réponses choisis
+        :return: une label qui contient le score sur le nombre de question
+        """
 
         if text == self.reponse:
             self.score += 1
@@ -175,10 +225,6 @@ class Quizz(App):
 
 
         return self.quizz.add_widget(Label(text=f"{self.score} / {len(self.taille_question)}"))
-
-
-
-
 
 def demarrage_interface():
 

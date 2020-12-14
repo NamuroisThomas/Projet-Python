@@ -10,7 +10,25 @@ class Partie:
         self.__theme = ""
         self.__tableauQuestion = []
 
+        """
+        Cela construit une partie par apport a son thème et ses questions
+        PRE: -
+        POST:-
+        
+        
+        """
+
+
+
+
     def setTheme(self):
+
+        """
+        Cette fonction permet la vérification du thème entré
+        PRE: -
+        POST:-
+
+        """
         valide = False
         question = self.accesFichierQuestion()
         while not valide:

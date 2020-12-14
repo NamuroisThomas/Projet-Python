@@ -9,6 +9,12 @@ class Question:
         self.__reponseC = reponseC
         self.__reponse = reponse
 
+        """
+        Cela construit les questions sous formes d'un tableau
+        PRE: question:, reponseA, reponseB, reponseC, reponse sont des strings
+        POST:-
+        """
+
     def getQuestion(self):
         return self.__question
     def getReponseA(self):
@@ -21,6 +27,11 @@ class Question:
         return self.__reponse
 
     def ajout_question( choix_theme : str   ,ma_question : str, proposition1 : str, proposition2 : str , proposition3 : str ,ma_reponse : str   ):
+        """
+        Cette fonction permet ajouter une question
+        PRE: choix_theme,ma_question,proposition et ma_reponse sont des strings
+        POST:renvoie un dictionnaire avec la nouvelle question
+        """
 
         try:
             with open('../questions/questions.json') as fichier_question:
@@ -30,7 +41,7 @@ class Question:
 
 
 
-            with open('./questions/questions.json','w') as question_push:
+            with open('../questions/questions.json','w') as question_push:
                 json.dump(question,question_push)
 
         except FileNotFoundError:
