@@ -1,15 +1,15 @@
 import csv
 
+
 class Utilisateurs:
 
-    def __init__(self, nom: str, prenom: str, pseudo:str):
+    def __init__(self, nom: str, prenom: str, pseudo: str):
         self.__nom = nom
         self.__prenom = prenom
         self.__pseudo = pseudo
 
-
     @property
-    def getPseudo(self):
+    def getpseudo(self):
         return self.__pseudo
 
     @property
@@ -20,7 +20,7 @@ class Utilisateurs:
     def getnom(self):
         return self.__nom
 
-    def sauvegarde_utilisateur( nom :str,prenom : str,pseudo : str  ):
+    def sauvegarde_utilisateur(nom: str, prenom: str, utilisateur: str):
 
         """
         Cette fonction me permet de sauvegarder mes utilisateurs dans un fichier csv
@@ -41,13 +41,10 @@ class Utilisateurs:
             csv_fichier.writeheader()
             """
 
-            with open("../utilisateur_sauvegarde/utilisateur.csv","w",newline='') as fichier_Utilisateur:
+            with open("../utilisateur_sauvegarde/utilisateur.csv", "a", newline='') as fichier_Utilisateur:
 
-                entete = ["Nom","Prénom","pseudo"]
-                donne = [nom,prenom,pseudo]
-
-                csv_fichier = csv.DictWriter(fichier_Utilisateur,fieldnames=entete)
-                csv_fichier.writeheader()
+                # entete = ["Nom", "Prénom", "Utilisateur"]
+                donne = [nom, prenom, utilisateur]
 
                 sauvegarde = csv.writer(fichier_Utilisateur)
                 sauvegarde.writerow(donne)
@@ -57,5 +54,3 @@ class Utilisateurs:
 
         except IOError:
             print('Erreur IO.')
-
-

@@ -1,10 +1,10 @@
 import json
+
+
 class Question:
 
-
-    def __init__(self, question:str,  reponse:str):
+    def __init__(self, question: str, reponse: str):
         self.__question = question
-
         self.__reponse = reponse
 
         """
@@ -13,13 +13,14 @@ class Question:
         POST:-
         """
 
-    def getQuestion(self):
+    def getquestion(self):
         return self.__question
 
-    def getReponse(self):
+    def getqeponse(self):
         return self.__reponse
 
-    def ajout_question( choix_theme : str   ,ma_question : str,ma_reponse : str   ):
+    def ajout_question(choix_theme: str, ma_question: str, proposition1: str, proposition2: str, proposition3: str,
+                       ma_reponse: str):
         """
         Cette fonction permet ajouter une question
         PRE: choix_theme,ma_question,proposition et ma_reponse sont des strings
@@ -27,15 +28,13 @@ class Question:
         """
 
         try:
-            with open('../questions/questions.json',encoding="utf-8") as fichier_question:
+            with open('../questions/questions.json') as fichier_question:
                 question = json.load(fichier_question)
 
-                question[choix_theme].extend([[ma_question,ma_reponse]])
+                question[choix_theme].extend([[ma_question, proposition1, proposition2, proposition3, ma_reponse]])
 
-
-
-            with open('../questions/questions.json','w') as question_push:
-                json.dump(question,question_push)
+            with open('../questions/questions.json', 'w') as question_push:
+                json.dump(question, question_push)
 
         except FileNotFoundError:
             print('Fichier introuvable.')
