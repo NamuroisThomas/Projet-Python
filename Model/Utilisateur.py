@@ -1,12 +1,12 @@
 import csv
 
+
 class Utilisateurs:
 
-    def __init__(self, nom: str, prenom: str, pseudo:str):
+    def __init__(self, nom: str, prenom: str, pseudo: str):
         self.__nom = nom
         self.__prenom = prenom
         self.__pseudo = pseudo
-
 
     @property
     def getPseudo(self):
@@ -20,7 +20,7 @@ class Utilisateurs:
     def getnom(self):
         return self.__nom
 
-    def sauvegarde_utilisateur( nom :str,prenom : str,utilisateur : str  ):
+    def sauvegarde_utilisateur(nom: str, prenom: str, pseudo: str):
 
         """
         Cette fonction me permet de sauvegarder mes utilisateurs dans un fichier csv
@@ -35,16 +35,19 @@ class Utilisateurs:
         try:
             """
             la librairie csv me permet l'échange de données avec un fichier csv
-            
-            
+
+
             csv_fichier = csv.DictWriter(fichier_Utilisateur,fieldnames=entete)
             csv_fichier.writeheader()
             """
 
-            with open("../utilisateur_sauvegarde/utilisateur.csv","a",newline='') as fichier_Utilisateur:
+            with open("../utilisateur_sauvegarde/utilisateur.csv", "w", newline='') as fichier_Utilisateur:
 
-                entete = ["Nom","Prénom","Utilisateur"]
-                donne = [nom,prenom,utilisateur]
+                entete = ["Nom", "Prénom", "pseudo"]
+                donne = [nom, prenom, pseudo]
+
+                csv_fichier = csv.DictWriter(fichier_Utilisateur, fieldnames=entete)
+                csv_fichier.writeheader()
 
                 sauvegarde = csv.writer(fichier_Utilisateur)
                 sauvegarde.writerow(donne)
