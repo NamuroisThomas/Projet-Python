@@ -13,20 +13,18 @@ class Partie:
         Cela construit une partie par apport a son thème et ses questions
         PRE: -
         POST:-
-        
-        
         """
 
-    def settheme(self):
+    def setTheme(self):
 
         """
-        Cette fonction permet la vérification du thème entré
+        Cette fonction permet la vérification du thème entrée
         PRE: -
         POST:-
 
         """
         valide = False
-        question = self.accesfichierquestion()
+        question = self.accesFichierQuestion()
         while not valide:
             choix_theme = input("Veuillez choisir entre les 3 thèmes suivant: geographie, informatique et histoire:")
             if choix_theme in question.keys():
@@ -36,51 +34,35 @@ class Partie:
                 print("Insertion invalide")
 
     @property
-    def gettheme(self):
+    def getTheme(self):
         return self.__theme
 
-    def gettableauquestion(self):
+    def getTableauQuestion(self):
         return self.__tableauQuestion
 
-    def recupquestions(self):
-        question = self.accesfichierquestion()
+    def recupQuestions(self):
+        question = self.accesFichierQuestion()
         # print(question.keys())
 
         for numQuestion in question[self.__theme]:
             ajout = Question(
                 numQuestion[0],
                 numQuestion[1]
-
             )
-            self.insertquestion(ajout)
+            self.insertQuestion(ajout)
 
-    def insertquestion(self, question: Question):
+    def insertQuestion(self, question: Question):
         self.__tableauQuestion.append(question)
 
-    def accesfichierquestion(self):
+    def accesFichierQuestion(self):
+        """
+        Cette fonction permet accéder au questions
+        PRE: -
+        POST:renvoie le dictionnaire de questions
+
+        """
+
         with open('../questions/questions.json') as json_question:
             test = json.load(json_question)
             question = dict(test)
         return question
-
-
-"""""
-    def lanceQuestion(self):
-        score = 0
-        question = self.accesFichierQuestion()
-        for questions in question[self.__theme]:
-
-            questions_demande = input(
-                f"{questions[0]}{questions[1]}{questions[2]}{questions[3]}\n"
-                f",veuillez choisir la lettre correspondant à la réponses  :  ")  # correspond a nos questions
-            # cette condition nous permet de vérifier si la réponse a cette question égale a nos reponses définis avant
-            if questions_demande == questions[4]:
-
-                score += 1
-                print(f"votre score est de {score} / {len(question[self.__theme])}")
-
-            else:
-
-                print("mauvaise réponse")
-                print(f"la bonne réponse étais : {questions[4]}")
-"""""
