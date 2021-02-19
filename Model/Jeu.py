@@ -1,9 +1,8 @@
-from Model.Utilisateurs import Utilisateurs
-from Model.Partie import Partie
+from Utilisateur import Utilisateurs
+from Partie import Partie
 
 
-class JEux:
-
+class Jeu:
 
     def __init__(self, nom: str, prenom: str, pseudo: str):
         self.__utilisateur = Utilisateurs(nom, prenom, pseudo)
@@ -14,8 +13,7 @@ class JEux:
         Cela construit une partie basée sur un utilisateur , sa partie,son score
         PRE: utilisateur est une appelle une autre classe , la partie est aussi un appelle,et le score est un entier
         POST:-
-        
-        
+
         """
 
     @property
@@ -24,10 +22,7 @@ class JEux:
 
     @property
     def getPartie(self):
-
         return self.__partie.getTableauQuestion()
-
-
 
     def setPartie(self):
         self.__partie.setTheme()
@@ -37,5 +32,7 @@ class JEux:
         Une fonction qui récupère des questions par rapport à son thème
         PRE: -
         POST:-
-        
+
         """
+
+
