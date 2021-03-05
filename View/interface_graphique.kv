@@ -69,6 +69,7 @@ WindowManager:
             size_hint : 0.3, 0.1
             pos_hint : {"x" : 0.39, "top" : 0.28}
             on_release:
+                root.voir_info()
 
                 app.root.current = "Theme"
                 root.manager.transition.direction = "left"

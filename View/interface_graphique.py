@@ -6,6 +6,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.textinput import TextInput
 
 from Model import Partie
+from Model import Utilisateur
 
 
 class Acceuil(Screen):
@@ -13,8 +14,17 @@ class Acceuil(Screen):
 
 
 class SauvegardeJoueur(Screen):
+
     def voir_info(self):
-        print(self.ids.nom.text)
+
+        nom = self.ids.nom.text
+        prenom = self.ids.prenom.text
+        pseudo = self.ids.pseudo.text
+
+
+        Utilisateur.Utilisateurs.sauvegarde_utilisateur(nom,prenom,pseudo)
+
+
 
 
 class Theme(Screen):
