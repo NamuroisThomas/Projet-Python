@@ -4,7 +4,8 @@ WindowManager:
     Theme:
     Histoire:
     Geographie:
-    Informatique
+    Informatique:
+    AjoutQuestion:
 
 
 <Acceuil>:
@@ -30,6 +31,22 @@ WindowManager:
             color:0,0,0,1
             background_normal:'Bouton_fond_blanc.png'
             background_down:'Bouton_fond_blanc.png'
+
+
+        Button:
+            text: "Ajouter un question"
+            on_release:
+                app.root.current = "AjoutQuestion"
+                root.manager.transition.direction = "left"
+
+            bold:True
+
+            size_hint:0.4,0.3
+            color:0,0,0,1
+            background_normal:'Bouton_fond_blanc.png'
+            background_down:'Bouton_fond_blanc.png'
+
+
 
 
 <SauvegardeJoueur>:
@@ -194,8 +211,53 @@ WindowManager:
             size_hint_x: 0.4
             pos_hint: {'x': 0}
 
-
             on_release: root.lancement_question()
+
+<AjoutQuestion>:
+    name : "AjoutQuestion"
+
+
+    FloatLayout:
+        Label:
+            text : "Thème: "
+            size_hint : 0.2, 0.1
+            pos_hint : {"x":0.25, "top":0.9}
+
+        Spinner:
+            id : theme
+            text: 'Choisissez votre thème'
+            values: 'histoire','geographie','informatique'
+
+
+
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.45, "top" : 0.9}
+        Label:
+            text : "Question :  "
+            size_hint : 0.2, 0.1
+            pos_hint : {"x" : 0.25, "top" : 0.7}
+        TextInput:
+            id : Question
+            multiline : False
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.45, "top" : 0.7}
+        Label:
+            text : "Reponse: "
+            size_hint : 0.2, 0.1
+            pos_hint : {"x" : 0.25, "top" : 0.5}
+        TextInput:
+            id : Reponse
+            multiline : False
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.45, "top" : 0.5}
+        Button:
+            text : "Ajouter la question"
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.39, "top" : 0.28}
+            on_release:
+                root.ajout_question()
+
+
 
 
 

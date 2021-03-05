@@ -6,6 +6,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.textinput import TextInput
 
 from Model import Partie
+from Model import Question
 from Model import Utilisateur
 
 
@@ -16,15 +17,13 @@ class Acceuil(Screen):
 class SauvegardeJoueur(Screen):
 
     def voir_info(self):
-
         nom = self.ids.nom.text
         prenom = self.ids.prenom.text
         pseudo = self.ids.pseudo.text
 
+        sauvegarde = Utilisateur.Utilisateurs.sauvegarde_utilisateur(self, nom, prenom, pseudo)
 
-        Utilisateur.Utilisateurs.sauvegarde_utilisateur(nom,prenom,pseudo)
-
-
+        return sauvegarde
 
 
 class Theme(Screen):
@@ -91,7 +90,6 @@ class Histoire(Screen):
 
         for index, reponse in enumerate(self.fichier_question[self.theme]):
             print(reponse[1])
-
 
             if self.verifications[index] == reponse[1]:
                 print("ok")
@@ -169,7 +167,6 @@ class Geographie(Screen):
         for index, reponse in enumerate(self.fichier_question[self.theme]):
             print(reponse[1])
 
-
             if self.verifications[index] == reponse[1]:
                 print("ok")
                 self.score += 1
@@ -246,7 +243,6 @@ class Informatique(Screen):
         for index, reponse in enumerate(self.fichier_question[self.theme]):
             print(reponse[1])
 
-
             if self.verifications[index] == reponse[1]:
                 print("ok")
                 self.score += 1
@@ -260,6 +256,19 @@ class Informatique(Screen):
 
         self.ids.zone_questions_informatique.clear_widgets()
         self.ids.zone_questions_informatique.add_widget(le_score)
+
+
+class AjoutQuestion(Screen):
+
+    def ajout_question(self):
+        theme = self.ids.theme.text
+        print(theme)
+        question = self.ids.Question.text
+        print(question)
+        reponse = self.ids.Reponse.text
+        print(reponse)
+
+        return Question.Question.ajout_question(theme, question, reponse)
 
 
 class WindowManager(ScreenManager):
