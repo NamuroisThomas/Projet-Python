@@ -275,13 +275,14 @@ class WindowManager(ScreenManager):
     pass
 
 
-kv = Builder.load_file('interface_graphique.kv')
-
-
 class MyMainApp(App):
+
     def build(self):
-        return kv
+        return Builder.load_file('interface_graphique_kivy.kv',encoding='utf8')
 
 
-if __name__ == "__main__":
+def start_GUI():
     MyMainApp().run()
+
+
+print(start_GUI())
