@@ -13,7 +13,7 @@ class Partie:
         self.__tableauQuestion = []
 
         """
-        Cela construit une partie par apport a son thème et ses questions
+        Cela construit une partie 
         PRE: -
         POST:-
         """
@@ -53,7 +53,11 @@ class Partie:
     def get_tableau_question(self):
         return self.__tableauQuestion
 
+
     def recup_questions(self):
+        """
+        Cette fonction permet la récupération des questions dans un fichier JSON
+        """
         question = self.acces_fichier_question()
         # print(question.keys())
 
@@ -67,9 +71,14 @@ class Partie:
                 self.insert_question(ajout)
 
         except KeyError:
-            print("La clés qui représente le thème est mauvais")
+            print("La clés qui représente le thème est n'existe pas")
 
     def insert_question(self, question: Question):
+        """
+        Cette fonction permet de rajouter les questions dans un tableau
+        :param question: les questions à ajouter dans le tableau tableauQuestion
+        :return: -
+        """
         self.__tableauQuestion.append(question)
 
     def acces_fichier_question(self):

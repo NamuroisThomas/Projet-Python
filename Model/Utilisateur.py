@@ -7,6 +7,11 @@ import csv
 class Utilisateurs:
 
     def __init__(self, nom: str, prenom: str, pseudo: str):
+        """
+        Cela construit un utilisateur basée sur son nom,prénom et pseudo
+        PRE: nom , prenom et pseudo sont des strings
+        POST: -
+        """
 
         self.__nom = nom
         self.__prenom = prenom
@@ -28,22 +33,11 @@ class Utilisateurs:
 
         """
         Cette fonction me permet de sauvegarder mes utilisateurs dans un fichier csv
-
-        :param nom: nom du joueur
-        :param prenom:prenom du joueur
-        :param pseudo:pseudo de utilisateur
-
-        :return:-
+        PRE: nom,prenom et pseudo sont des strings
+        POST: -
         """
 
         try:
-            """
-            la librairie csv me permet l'échange de données avec un fichier csv
-
-
-            csv_fichier = csv.DictWriter(fichier_Utilisateur,fieldnames=entete)
-            csv_fichier.writeheader()
-            """
 
             with open("../utilisateur_sauvegarde/utilisateur.csv", "a", newline='') as fichier_Utilisateur:
 

@@ -9,6 +9,9 @@ from Model.Jeu import Jeu
 
 
 def choix_interface():
+    """
+    Cette fonction permet de choisir entre le MVP ou GUI
+    """
     demande_choix = input("Choisissez votre interface (MVP ou GUI) : ")
 
     if demande_choix == "MVP":
@@ -20,9 +23,9 @@ def choix_interface():
 
 def commencer_jeu():
     """
-    cette fonction me permet de recevoir les renseignements et ensuite de jouer
+    Cette fonction permet de récupérer les données du joueur
 
-    :return: une fonction qui lance le jeu
+    :return: La fonction qui lance le Quizz
     """
 
     message_bienvenu = "Bienvenue dans notre Quizz Générale "
@@ -39,11 +42,11 @@ def jouer(nom, prenom, pseudo):
     print(f" {pseudo},Bonne partie ")
 
     """
-    cette fonction permet de jouer et enregistrer les données d'un joueur
+    Cette fonction est le Quizz et la sauvegarde du Joueur
 
-    :param nom: nom du joueur
-    :param prenom: prénom du joueur
-    :param pseudo: pseudo du joueur
+    :param nom: Nom du joueur
+    :param prenom: Prénom du joueur
+    :param pseudo: Pseudo du joueur
     :return: - 
     """
 
@@ -81,6 +84,9 @@ def jouer(nom, prenom, pseudo):
 
 
 def ajout_question():
+    """
+    Cette fonction permet l'ajout d'une question à un thème précis
+    """
     theme = input("Dans quelle thème voulez-vous l'ajouter ? : ")
     question = input("Quelle question voulez-vous ajouter ainsi que ses propositions ? : ")
     reponse = input("Quelle est la lettre correspondants à la question ? : ")

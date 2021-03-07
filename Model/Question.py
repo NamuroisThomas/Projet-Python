@@ -12,7 +12,7 @@ class Question:
         self.__reponse = reponse
 
         """
-        Cela construit les questions sous formes d'un tableau
+        Cela construit les questions sur base de la question et de sa réponse
         PRE: question, reponse sont des strings
         POST:-
         """
@@ -25,9 +25,9 @@ class Question:
 
     def ajout_question(choix_theme: str, ma_question: str, ma_reponse: str):
         """
-        Cette fonction permet ajouter une question
-        PRE: choix_theme,ma_question,proposition et ma_reponse sont des strings
-        POST:renvoie un dictionnaire avec la nouvelle question
+        Cette fonction permet ajouter une question au fichier JSON
+        PRE: choix_theme, ma_question et  ma_reponse sont des strings
+        POST: renvoie le json des questions
         """
 
         try:

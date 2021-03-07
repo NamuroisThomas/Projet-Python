@@ -8,13 +8,14 @@ from Model.Utilisateur import Utilisateurs
 class Jeu:
 
     def __init__(self, nom: str, prenom: str, pseudo: str):
+
         self.__utilisateur = Utilisateurs(nom, prenom, pseudo)
         self.__partie = Partie()
         self.__score = 0
 
         """
-        Cela construit une partie basée sur un utilisateur , sa partie,son score
-        PRE: utilisateur est une appelle une autre classe , la partie est aussi un appelle,et le score est un entier
+        Cela construit une une partie basée sur l'utilisateur .
+        PRE: Le nom , prenom , pseudo soient des strings
         POST:-
 
         """
@@ -31,9 +32,4 @@ class Jeu:
         self.__partie.set_theme()
         self.__partie.recup_questions()
 
-        """
-        Une fonction qui récupère des questions par rapport à son thème
-        PRE: -
-        POST:-
 
-        """
