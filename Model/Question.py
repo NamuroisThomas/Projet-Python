@@ -1,3 +1,6 @@
+#! / usr / bin / env python
+# - * - codage: utf-8 - * -
+
 import json
 
 
@@ -10,14 +13,14 @@ class Question:
 
         """
         Cela construit les questions sous formes d'un tableau
-        PRE: question:, reponseA, reponseB, reponseC, reponse sont des strings
+        PRE: question, reponse sont des strings
         POST:-
         """
 
-    def getQuestion(self):
+    def get_question(self):
         return self.__question
 
-    def getReponse(self):
+    def get_reponse(self):
         return self.__reponse
 
     def ajout_question(choix_theme: str, ma_question: str, ma_reponse: str):

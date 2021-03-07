@@ -1,4 +1,5 @@
-
+#! / usr / bin / env python
+# - * - codage: utf-8 - * -
 
 WindowManager:
     Acceuil:
@@ -35,18 +36,7 @@ WindowManager:
             background_down:'Bouton_fond_blanc.png'
 
 
-        Button:
-            text: "Ajouter un question"
-            on_release:
-                app.root.current = "AjoutQuestion"
-                root.manager.transition.direction = "left"
 
-            bold:True
-
-            size_hint:0.4,0.3
-            color:0,0,0,1
-            background_normal:'Bouton_fond_blanc.png'
-            background_down:'Bouton_fond_blanc.png'
 
 
 
@@ -54,8 +44,8 @@ WindowManager:
 <SauvegardeJoueur>:
     name : "SauvegardeJoueur"
 
-
     FloatLayout:
+
         Label:
             text : "Nom: "
             size_hint : 0.2, 0.1

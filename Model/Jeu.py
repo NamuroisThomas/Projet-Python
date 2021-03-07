@@ -1,5 +1,8 @@
-from Utilisateur import Utilisateurs
-from Partie import Partie
+#! / usr / bin / env python
+# - * - codage: utf-8 - * -
+
+from Model.Partie import Partie
+from Model.Utilisateur import Utilisateurs
 
 
 class Jeu:
@@ -17,16 +20,16 @@ class Jeu:
         """
 
     @property
-    def getUtilisateur(self):
-        return self.__utilisateur.getPseudo
+    def get_utilisateur(self):
+        return self.__utilisateur.get_pseudo
 
     @property
-    def getPartie(self):
-        return self.__partie.getTableauQuestion()
+    def get_partie(self):
+        return self.__partie.get_tableau_question()
 
-    def setPartie(self):
-        self.__partie.setTheme()
-        self.__partie.recupQuestions()
+    def set_partie(self):
+        self.__partie.set_theme()
+        self.__partie.recup_questions()
 
         """
         Une fonction qui récupère des questions par rapport à son thème
@@ -34,5 +37,3 @@ class Jeu:
         POST:-
 
         """
-
-

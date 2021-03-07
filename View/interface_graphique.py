@@ -1,3 +1,7 @@
+#! / usr / bin / env python
+# - * - codage: utf-8 - * -
+
+
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.button import Button
@@ -40,7 +44,7 @@ class Histoire(Screen):
         zone_questions_reponses.clear_widgets()
         # Nettoie tout les widget de mon Boxlayout
 
-        self.fichier_question = Partie.Partie.accesFichierQuestion(self)
+        self.fichier_question = Partie.Partie.acces_fichier_question(self)
         # accede au fichier de questions
 
         self.theme = "histoire"
@@ -105,6 +109,22 @@ class Histoire(Screen):
         self.ids.zone_questions_histoire.clear_widgets()
         self.ids.zone_questions_histoire.add_widget(le_score)
 
+        bouton_ajout_question = Button(text='Ajouter une question ? : ', on_release=self.ajout_question,
+
+                                       background_color=(0.1, 0.5, 0.6, 1),
+                                       color=(50, 50, 50, 50),
+                                       size=(15, 15),
+                                       size_hint=(.2, .2),
+                                       pos=(400, 250))
+
+        self.ids.zone_questions_histoire.add_widget(bouton_ajout_question)
+
+    def ajout_question(self, item):
+
+        self.manager.transition.direction = 'up'
+        self.manager.transition.duration = 3  # 3 seconds
+        self.manager.current = 'AjoutQuestion'
+
 
 class Geographie(Screen):
 
@@ -116,7 +136,7 @@ class Geographie(Screen):
         zone_questions_reponses.clear_widgets()
         # Nettoie tout les widget de mon Boxlayout
 
-        self.fichier_question = Partie.Partie.accesFichierQuestion(self)
+        self.fichier_question = Partie.Partie.acces_fichier_question(self)
         # accede au fichier de questions
 
         self.theme = "geographie"
@@ -181,6 +201,22 @@ class Geographie(Screen):
         self.ids.zone_questions_geographie.clear_widgets()
         self.ids.zone_questions_geographie.add_widget(le_score)
 
+        bouton_ajout_question = Button(text='Ajouter une question ? : ', on_release=self.ajout_question,
+
+                                       background_color=(0.1, 0.5, 0.6, 1),
+                                       color=(50, 50, 50, 50),
+                                       size=(15, 15),
+                                       size_hint=(.2, .2),
+                                       pos=(400, 250))
+
+        self.ids.zone_questions_geographie.add_widget(bouton_ajout_question)
+
+    def ajout_question(self, item):
+
+        self.manager.transition.direction = 'up'
+        self.manager.transition.duration = 3  # 3 seconds
+        self.manager.current = 'AjoutQuestion'
+
 
 class Informatique(Screen):
 
@@ -192,7 +228,7 @@ class Informatique(Screen):
         zone_questions_reponses.clear_widgets()
         # Nettoie tout les widget de mon Boxlayout
 
-        self.fichier_question = Partie.Partie.accesFichierQuestion(self)
+        self.fichier_question = Partie.Partie.acces_fichier_question(self)
         # accede au fichier de questions
 
         self.theme = "informatique"
@@ -252,10 +288,27 @@ class Informatique(Screen):
         print(self.score)
 
         le_score = Label(
-            text=f"Votre score pour le thème : {self.theme} est de {self.score} / {len(self.nombre_Questions)}")
+            text=f"Votre score pour le thème : {self.theme} est de {self.score} / {len(self.nombre_Questions)}",
+            pos=[0, 0],
+            size_hint=[1, 1])
 
         self.ids.zone_questions_informatique.clear_widgets()
         self.ids.zone_questions_informatique.add_widget(le_score)
+
+        bouton_ajout_question = Button(text='Ajouter une question ? : ',
+                                       on_release=self.ajout_question,
+                                       pos_hint={'x': .3, 'y': .6},
+                                       size_hint=(.5, .2)
+
+                                       )
+
+        self.ids.zone_questions_informatique.add_widget(bouton_ajout_question)
+
+    def ajout_question(self, item):
+
+        self.manager.transition.direction = 'up'
+        self.manager.transition.duration = 3  # 3 seconds
+        self.manager.current = 'AjoutQuestion'
 
 
 class AjoutQuestion(Screen):
@@ -278,11 +331,14 @@ class WindowManager(ScreenManager):
 class MyMainApp(App):
 
     def build(self):
-        return Builder.load_file('interface_graphique_kivy.kv',encoding='utf8')
+        return Builder.load_file(
+            'C:\\Users\\Gros\\Documents\\Développement informatique II\\Projet-Python\\View\\interface_graphique_kivy.kv',
+            encoding='utf8')
 
 
-def start_GUI():
+def start_gui():
     MyMainApp().run()
 
 
-print(start_GUI())
+if __name__ == "__main__":
+    start_gui()
