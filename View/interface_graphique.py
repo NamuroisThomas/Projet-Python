@@ -332,7 +332,7 @@ class MyMainApp(App):
 
     def build(self):
         return Builder.load_file(
-            'C:\\Users\\Gros\\Documents\\Développement informatique II\\Projet-Python\\View\\interface_graphique_kivy.kv',
+            'C:\\Users\\User\\Documents\\GitHub\\Projet-Python\\View\\interface_graphique_kivy.kv',
             encoding='utf8')
 
 

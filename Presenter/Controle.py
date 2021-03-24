@@ -10,15 +10,22 @@ from Model.Jeu import Jeu
 
 def choix_interface():
     """
-    Cette fonction permet de choisir entre le MVP ou GUI
+    Cette fonction permet de choisir entre la Console ou Gui
     """
-    demande_choix = input("Choisissez votre interface (MVP ou GUI) : ")
+    demande_choix = input("Choisissez votre interface (Console ou Gui) : ")
 
-    if demande_choix == "MVP":
-        commencer_jeu()
+    try:
+        if demande_choix == "Console":
+            commencer_jeu()
 
-    else:
-        gui.start_gui()
+        elif demande_choix == "GUI":
+            gui.start_gui()
+        else:
+            print("Choix invalide recommencer")
+            return choix_interface()
+    except Exception as e:
+        print("Erreur au dans le choix interfaces")
+        return e
 
 
 def commencer_jeu():
