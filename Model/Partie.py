@@ -12,19 +12,23 @@ class Partie:
         self.__theme = ""
         self.__tableauQuestion = []
 
+    def affichage(self):
         """
-        Cela construit une partie 
+
+       Cette fonction permet l'affichage d'un message au début de partie
+       PRE: -
+       POST: affiche une message au commencement de partie.
+        """
+
+        print("Bonne Partie à vous")
+
+    def theme(self):
+
+ 
+        """
+        Cette fonction  permet la vérification du thème entrée
         PRE: -
-        POST:-
-        """
-
-    def set_theme(self):
-
-        """
-        Cette fonction permet la vérification du thème entrée
-        PRE: -
-        POST:-
-
+        POST: Le thème valider le quizz peut continuer
         """
         valide = False
         question = self.acces_fichier_question()
@@ -46,12 +50,21 @@ class Partie:
                 print("Il n'y a pas de données ")
                 continue  # This causes it to continue
 
-    @property
-    def get_theme(self):
+
+    def le_theme(self):
         return self.__theme
 
-    def get_tableau_question(self):
+    def tableauquestion(self):
         return self.__tableauQuestion
+
+    def recupQuestions(self):
+
+        """
+        Cette fonction permet la récupération des questions
+       PRE: -
+       POST:Permet de récupérer les questions d'un thème précis
+        """
+        question = self.accesFichierQuestion()
 
 
     def recup_questions(self):
@@ -59,9 +72,21 @@ class Partie:
         Cette fonction permet la récupération des questions dans un fichier JSON
         """
         question = self.acces_fichier_question()
+
         # print(question.keys())
 
         try:
+
+
+    def insertQuestion(self, question: Question):
+
+        """
+        Cette fonction permet de stocker les questions d'un thème
+
+      PRE: les questions sont des tableaux .
+      POST: les questions et leur réponse sont stocker dans un tableau
+       """
+
 
             for numQuestion in question[self.__theme]:
                 ajout = Question(
@@ -79,6 +104,7 @@ class Partie:
         :param question: les questions à ajouter dans le tableau tableauQuestion
         :return: -
         """
+
         self.__tableauQuestion.append(question)
 
     def acces_fichier_question(self):
@@ -86,7 +112,6 @@ class Partie:
         Cette fonction permet accéder au questions
         PRE: -
         POST:renvoie le dictionnaire de questions
-
         """
 
         with open('../questions/questions.json') as json_question:
