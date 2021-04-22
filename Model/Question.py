@@ -8,23 +8,17 @@ class Question:
 
         self.__reponse = reponse
 
-        """
-        Cela construit les questions sous formes d'un tableau
-        PRE: question:, reponseA, reponseB, reponseC, reponse sont des strings
-        POST:-
-        """
-
-    def getQuestion(self):
+    def question(self):
         return self.__question
 
-    def getReponse(self):
+    def reponse(self):
         return self.__reponse
 
     def ajout_question(choix_theme: str, ma_question: str, ma_reponse: str):
         """
         Cette fonction permet ajouter une question
         PRE: choix_theme,ma_question,proposition et ma_reponse sont des strings
-        POST:renvoie un dictionnaire avec la nouvelle question
+        POST:renvoie le dictionnaire de questions avec la nouvelle question
         """
 
         try:
@@ -38,6 +32,7 @@ class Question:
 
         except FileNotFoundError:
             print('Fichier introuvable.')
+
         except IOError:
             print('Erreur IO.')
 
