@@ -8,18 +8,26 @@ class Utilisateurs:
 
     def __init__(self, nom: str, prenom: str, pseudo: str):
 
+        """
+        Cela construit un utilisateur basée sur son nom,prénom et pseudo
+        PRE: nom , prenom et pseudo sont des strings
+        POST: -
+        """
+
+
         self.__nom = nom
         self.__prenom = prenom
         self.__pseudo = pseudo
 
     def pseudo(self):
-        return self.__pseudo
+
 
     def prenom(self):
         return self.__prenom
 
     def nom(self):
         return self.__nom
+
 
     def sauvegarde_utilisateur(self):
 
@@ -34,6 +42,8 @@ class Utilisateurs:
                 # entete = ['ID',"Nom", "Prenom", "Pseudo"]
                 donne = ['', self.__nom, self.__prenom, self.__pseudo]
 
+
+       
                 # csv_fichier = csv.DictWriter(fichier_Utilisateur, fieldnames=entete)
                 # csv_fichier.writeheader()
 
@@ -47,6 +57,7 @@ class Utilisateurs:
 
         except IOError:
             print('Erreur IO.')
+
 
     def ajout_id(self):
 
@@ -78,3 +89,4 @@ class Utilisateurs:
 if __name__ == "__main__":
     Utilisateurs("A", "A", "A").ajout_id()
 """
+
