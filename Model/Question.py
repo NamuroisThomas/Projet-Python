@@ -1,6 +1,3 @@
-#! / usr / bin / env python
-# - * - codage: utf-8 - * -
-
 import json
 
 
@@ -10,11 +7,10 @@ class Question:
         self.__question = question
         self.__reponse = reponse
 
-
     def question(self):
         return self.__question
 
-
+    def reponse(self):
         return self.__reponse
 
     def ajout_question(choix_theme: str, ma_question: str, ma_reponse: str):
