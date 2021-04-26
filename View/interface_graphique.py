@@ -1,3 +1,7 @@
+#! / usr / bin / env python
+# - * - codage: utf-8 - * -
+
+
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.button import Button
@@ -6,6 +10,8 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.textinput import TextInput
 
 from Model import Partie
+from Model import Question
+from Model import Utilisateur
 
 
 class Acceuil(Screen):
@@ -13,8 +19,15 @@ class Acceuil(Screen):
 
 
 class SauvegardeJoueur(Screen):
+
     def voir_info(self):
-        print(self.ids.nom.text)
+        nom = self.ids.nom.text
+        prenom = self.ids.prenom.text
+        pseudo = self.ids.pseudo.text
+
+        sauvegarde = Utilisateur.Utilisateurs.sauvegarde_utilisateur(self, nom, prenom, pseudo)
+
+        return sauvegarde
 
 
 class Theme(Screen):
@@ -31,7 +44,7 @@ class Histoire(Screen):
         zone_questions_reponses.clear_widgets()
         # Nettoie tout les widget de mon Boxlayout
 
-        self.fichier_question = Partie.Partie.accesFichierQuestion(self)
+        self.fichier_question = Partie.Partie.acces_fichier_question(self)
         # accede au fichier de questions
 
         self.theme = "histoire"
@@ -82,7 +95,6 @@ class Histoire(Screen):
         for index, reponse in enumerate(self.fichier_question[self.theme]):
             print(reponse[1])
 
-
             if self.verifications[index] == reponse[1]:
                 print("ok")
                 self.score += 1
@@ -97,6 +109,22 @@ class Histoire(Screen):
         self.ids.zone_questions_histoire.clear_widgets()
         self.ids.zone_questions_histoire.add_widget(le_score)
 
+        bouton_ajout_question = Button(text='Ajouter une question ? : ', on_release=self.ajout_question,
+
+                                       background_color=(0.1, 0.5, 0.6, 1),
+                                       color=(50, 50, 50, 50),
+                                       size=(15, 15),
+                                       size_hint=(.2, .2),
+                                       pos=(400, 250))
+
+        self.ids.zone_questions_histoire.add_widget(bouton_ajout_question)
+
+    def ajout_question(self, item):
+
+        self.manager.transition.direction = 'up'
+        self.manager.transition.duration = 3  # 3 seconds
+        self.manager.current = 'AjoutQuestion'
+
 
 class Geographie(Screen):
 
@@ -108,7 +136,7 @@ class Geographie(Screen):
         zone_questions_reponses.clear_widgets()
         # Nettoie tout les widget de mon Boxlayout
 
-        self.fichier_question = Partie.Partie.accesFichierQuestion(self)
+        self.fichier_question = Partie.Partie.acces_fichier_question(self)
         # accede au fichier de questions
 
         self.theme = "geographie"
@@ -159,7 +187,6 @@ class Geographie(Screen):
         for index, reponse in enumerate(self.fichier_question[self.theme]):
             print(reponse[1])
 
-
             if self.verifications[index] == reponse[1]:
                 print("ok")
                 self.score += 1
@@ -174,6 +201,22 @@ class Geographie(Screen):
         self.ids.zone_questions_geographie.clear_widgets()
         self.ids.zone_questions_geographie.add_widget(le_score)
 
+        bouton_ajout_question = Button(text='Ajouter une question ? : ', on_release=self.ajout_question,
+
+                                       background_color=(0.1, 0.5, 0.6, 1),
+                                       color=(50, 50, 50, 50),
+                                       size=(15, 15),
+                                       size_hint=(.2, .2),
+                                       pos=(400, 250))
+
+        self.ids.zone_questions_geographie.add_widget(bouton_ajout_question)
+
+    def ajout_question(self, item):
+
+        self.manager.transition.direction = 'up'
+        self.manager.transition.duration = 3  # 3 seconds
+        self.manager.current = 'AjoutQuestion'
+
 
 class Informatique(Screen):
 
@@ -185,7 +228,7 @@ class Informatique(Screen):
         zone_questions_reponses.clear_widgets()
         # Nettoie tout les widget de mon Boxlayout
 
-        self.fichier_question = Partie.Partie.accesFichierQuestion(self)
+        self.fichier_question = Partie.Partie.acces_fichier_question(self)
         # accede au fichier de questions
 
         self.theme = "informatique"
@@ -236,7 +279,6 @@ class Informatique(Screen):
         for index, reponse in enumerate(self.fichier_question[self.theme]):
             print(reponse[1])
 
-
             if self.verifications[index] == reponse[1]:
                 print("ok")
                 self.score += 1
@@ -246,23 +288,57 @@ class Informatique(Screen):
         print(self.score)
 
         le_score = Label(
-            text=f"Votre score pour le thème : {self.theme} est de {self.score} / {len(self.nombre_Questions)}")
+            text=f"Votre score pour le thème : {self.theme} est de {self.score} / {len(self.nombre_Questions)}",
+            pos=[0, 0],
+            size_hint=[1, 1])
 
         self.ids.zone_questions_informatique.clear_widgets()
         self.ids.zone_questions_informatique.add_widget(le_score)
+
+        bouton_ajout_question = Button(text='Ajouter une question ? : ',
+                                       on_release=self.ajout_question,
+                                       pos_hint={'x': .3, 'y': .6},
+                                       size_hint=(.5, .2)
+
+                                       )
+
+        self.ids.zone_questions_informatique.add_widget(bouton_ajout_question)
+
+    def ajout_question(self, item):
+
+        self.manager.transition.direction = 'up'
+        self.manager.transition.duration = 3  # 3 seconds
+        self.manager.current = 'AjoutQuestion'
+
+
+class AjoutQuestion(Screen):
+
+    def ajout_question(self):
+        theme = self.ids.theme.text
+        print(theme)
+        question = self.ids.Question.text
+        print(question)
+        reponse = self.ids.Reponse.text
+        print(reponse)
+
+        return Question.Question.ajout_question(theme, question, reponse)
 
 
 class WindowManager(ScreenManager):
     pass
 
 
-kv = Builder.load_file('interface_graphique.kv')
-
-
 class MyMainApp(App):
+
     def build(self):
-        return kv
+        return Builder.load_file(
+            'C:\\Users\\User\\Documents\\GitHub\\Projet-Python\\View\\interface_graphique_kivy.kv',
+            encoding='utf8')
+
+
+def start_gui():
+    MyMainApp().run()
 
 
 if __name__ == "__main__":
-    MyMainApp().run()
+    start_gui()

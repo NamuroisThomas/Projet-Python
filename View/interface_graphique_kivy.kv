@@ -1,10 +1,14 @@
+#! / usr / bin / env python
+# - * - codage: utf-8 - * -
+
 WindowManager:
     Acceuil:
     SauvegardeJoueur:
     Theme:
     Histoire:
     Geographie:
-    Informatique
+    Informatique:
+    AjoutQuestion:
 
 
 <Acceuil>:
@@ -32,11 +36,16 @@ WindowManager:
             background_down:'Bouton_fond_blanc.png'
 
 
+
+
+
+
+
 <SauvegardeJoueur>:
     name : "SauvegardeJoueur"
 
-
     FloatLayout:
+
         Label:
             text : "Nom: "
             size_hint : 0.2, 0.1
@@ -69,6 +78,7 @@ WindowManager:
             size_hint : 0.3, 0.1
             pos_hint : {"x" : 0.39, "top" : 0.28}
             on_release:
+                root.voir_info()
 
                 app.root.current = "Theme"
                 root.manager.transition.direction = "left"
@@ -193,8 +203,53 @@ WindowManager:
             size_hint_x: 0.4
             pos_hint: {'x': 0}
 
-
             on_release: root.lancement_question()
+
+<AjoutQuestion>:
+    name : "AjoutQuestion"
+
+
+    FloatLayout:
+        Label:
+            text : "Thème: "
+            size_hint : 0.2, 0.1
+            pos_hint : {"x":0.25, "top":0.9}
+
+        Spinner:
+            id : theme
+            text: 'Choisissez votre thème'
+            values: 'histoire','geographie','informatique'
+
+
+
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.45, "top" : 0.9}
+        Label:
+            text : "Question :  "
+            size_hint : 0.2, 0.1
+            pos_hint : {"x" : 0.25, "top" : 0.7}
+        TextInput:
+            id : Question
+            multiline : False
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.45, "top" : 0.7}
+        Label:
+            text : "Reponse: "
+            size_hint : 0.2, 0.1
+            pos_hint : {"x" : 0.25, "top" : 0.5}
+        TextInput:
+            id : Reponse
+            multiline : False
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.45, "top" : 0.5}
+        Button:
+            text : "Ajouter la question"
+            size_hint : 0.3, 0.1
+            pos_hint : {"x" : 0.39, "top" : 0.28}
+            on_release:
+                root.ajout_question()
+
+
 
 
 
