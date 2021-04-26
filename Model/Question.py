@@ -1,6 +1,3 @@
-#! / usr / bin / env python
-# - * - codage: utf-8 - * -
-
 import json
 
 
@@ -8,23 +5,19 @@ class Question:
 
     def __init__(self, question: str, reponse: str):
         self.__question = question
-
         self.__reponse = reponse
-
 
     def question(self):
         return self.__question
 
-
+    def reponse(self):
         return self.__reponse
 
     def ajout_question(choix_theme: str, ma_question: str, ma_reponse: str):
         """
-
-        Cette fonction permet ajouter une question
+        Cette fonction permet ajouter une question dans le fichier questions.json
         PRE: choix_theme,ma_question,proposition et ma_reponse sont des strings
-        POST:renvoie le dictionnaire de questions avec la nouvelle question
-
+        POST:Le fichier de questions questions.json est modifiée et contient la nouvelle question et sa réponse
         """
 
         try:

@@ -3,24 +3,19 @@
 
 import csv
 
+from Model.exception import ErreurCustomiser
 
-class Utilisateurs:
+
+class Utilisateurs(ErreurCustomiser):
 
     def __init__(self, nom: str, prenom: str, pseudo: str):
-
-        """
-        Cela construit un utilisateur basée sur son nom,prénom et pseudo
-        PRE: nom , prenom et pseudo sont des strings
-        POST: -
-        """
-
 
         self.__nom = nom
         self.__prenom = prenom
         self.__pseudo = pseudo
 
     def pseudo(self):
-
+        return self.__pseudo
 
     def prenom(self):
         return self.__prenom
@@ -28,13 +23,12 @@ class Utilisateurs:
     def nom(self):
         return self.__nom
 
-
     def sauvegarde_utilisateur(self):
 
         """
         Cette fonction me permet de sauvegarder un utilisateur dans un fichier csv
         PRE: -
-        POST: L'utilisateur est sauvegarder dans le fichier utilisateur.csv
+        POST: le fichier utilisateur.csv a été modifié et contient un nouvel utilisateur
         """
 
         try:
@@ -42,8 +36,6 @@ class Utilisateurs:
                 # entete = ['ID',"Nom", "Prenom", "Pseudo"]
                 donne = ['', self.__nom, self.__prenom, self.__pseudo]
 
-
-       
                 # csv_fichier = csv.DictWriter(fichier_Utilisateur, fieldnames=entete)
                 # csv_fichier.writeheader()
 
@@ -52,19 +44,15 @@ class Utilisateurs:
 
                 Utilisateurs.ajout_id(self)
 
-        except FileNotFoundError:
-            print('Fichier introuvable.')
-
-        except IOError:
-            print('Erreur IO.')
-
+        except ErreurCustomiser:
+            print('Un erreur à été détecté ')
 
     def ajout_id(self):
 
         """
         Cette fonction me permet la création d'ID pour chaque utilisateur contenue dans le fichier csv
         PRE:-
-        POST:Crée un ID pour chaque utilisateur dans le fichier utilisateur.csv
+        POST:le fichier utilisateur.csv à été modifier en ajoutant un ID à chaque utilisateurs
         """
 
         fichier_id = []
@@ -89,4 +77,3 @@ class Utilisateurs:
 if __name__ == "__main__":
     Utilisateurs("A", "A", "A").ajout_id()
 """
-
