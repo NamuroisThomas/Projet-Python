@@ -23,7 +23,7 @@ class Partie:
         """
         Cette fonction  permet la vérification du thème entrée
         PRE: -
-        POST: Le thème valider le quizz peut continuer
+        POST: Le thème à valider et le quizz peut continuer
         """
         valide = False
         question = self.accesFichierQuestion()
@@ -45,8 +45,9 @@ class Partie:
 
         """
         Cette fonction permet la récupération des questions
-       PRE: -
-       POST:Permet de récupérer les questions d'un thème précis
+        PRE: -
+        POST: Le fichier de questions questions.json est parcouru et les questions
+        liée au thème sont stocker dans un tableau
         """
         question = self.accesFichierQuestion()
         # print(question.keys())
@@ -62,9 +63,8 @@ class Partie:
 
         """
         Cette fonction permet de stocker les questions d'un thème
-
-      PRE: les questions sont des tableaux .
-      POST: les questions et leur réponse sont stocker dans un tableau
+        PRE: Les questions sont des tableaux
+        POST: les questions et leurs réponse sont stocker dans un tableau centrale au thème
        """
 
         self.__tableauQuestion.append(question)
@@ -73,7 +73,7 @@ class Partie:
         """
         Cette fonction permet accéder au questions
         PRE: -
-        POST:renvoie le dictionnaire de questions
+        POST:renvoie le contenue du fichier questions.json qui est un dictionnaire
         """
 
         with open('../questions/questions.json') as json_question:

@@ -13,7 +13,7 @@ class Jeu:
         """
               Cette fonction permet l'affichage d'un message au début de jeu
               PRE: -
-              POST: affiche une message au commencement de jeu.
+              POST: affiche un message au commencement du Jeu
                """
         print("Bonne Jeu à vous")
 
@@ -27,8 +27,8 @@ class Jeu:
         """
         Une fonction qui récupère des questions par rapport à son thème
         PRE: -
-        POST: Permet la creation d'une partie par rapport à son thème et tableau de questions
-        via des appel de fonctions provenant de la classe partie
+        POST: Appel de la méthode theme et de recupQuestions qui composent une partie
+
         """
         self.__partie.theme()
         self.__partie.recupQuestions()

@@ -26,8 +26,10 @@ class Utilisateurs:
         """
         Cette fonction me permet de sauvegarder un utilisateur dans un fichier csv
         PRE: -
-        POST: L'utilisateur est sauvegarder dans le fichier utilisateur.csv
+        POST: le fichier utilisateur.csv a été modifié et contient un nouvel utilisateur
         """
+
+        #crée l'execption et ka metttre dna lhéritage
 
         try:
             with open("../utilisateur_sauvegarde/utilisateur.csv", "a", encoding='utf-8') as fichier_Utilisateur:
@@ -53,7 +55,7 @@ class Utilisateurs:
         """
         Cette fonction me permet la création d'ID pour chaque utilisateur contenue dans le fichier csv
         PRE:-
-        POST:Crée un ID pour chaque utilisateur dans le fichier utilisateur.csv
+        POST:le fichier utilisateur.csv à été modifier en ajoutant un ID à chaque utilisateurs
         """
 
         fichier_id = []
