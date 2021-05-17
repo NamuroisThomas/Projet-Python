@@ -9,9 +9,9 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.textinput import TextInput
 
-from Model import Partie
-from Model import Question
-from Model import Utilisateur
+from Model.Partie import Partie
+from Model.Question import Question
+from Model.Utilisateur import Utilisateurs
 
 
 class Acceuil(Screen):
@@ -25,7 +25,7 @@ class SauvegardeJoueur(Screen):
         prenom = self.ids.prenom.text
         pseudo = self.ids.pseudo.text
 
-        sauvegarde = Utilisateur.Utilisateurs.sauvegarde_utilisateur(self, nom, prenom, pseudo)
+        sauvegarde = Utilisateurs(nom, prenom, pseudo).sauvegarde_utilisateur()
 
         return sauvegarde
 
@@ -44,7 +44,7 @@ class Histoire(Screen):
         zone_questions_reponses.clear_widgets()
         # Nettoie tout les widget de mon Boxlayout
 
-        self.fichier_question = Partie.Partie.acces_fichier_question(self)
+        self.fichier_question = Partie.accesFichierQuestion(self)
         # accede au fichier de questions
 
         self.theme = "histoire"
@@ -136,7 +136,7 @@ class Geographie(Screen):
         zone_questions_reponses.clear_widgets()
         # Nettoie tout les widget de mon Boxlayout
 
-        self.fichier_question = Partie.Partie.acces_fichier_question(self)
+        self.fichier_question = Partie.accesFichierQuestion(self)
         # accede au fichier de questions
 
         self.theme = "geographie"
@@ -228,7 +228,7 @@ class Informatique(Screen):
         zone_questions_reponses.clear_widgets()
         # Nettoie tout les widget de mon Boxlayout
 
-        self.fichier_question = Partie.Partie.acces_fichier_question(self)
+        self.fichier_question = Partie.accesFichierQuestion(self)
         # accede au fichier de questions
 
         self.theme = "informatique"
@@ -314,14 +314,14 @@ class Informatique(Screen):
 class AjoutQuestion(Screen):
 
     def ajout_question(self):
-        theme = self.ids.theme.text
+        theme = self.ids.letheme.text
         print(theme)
         question = self.ids.Question.text
         print(question)
         reponse = self.ids.Reponse.text
         print(reponse)
 
-        return Question.Question.ajout_question(theme, question, reponse)
+        return Question.ajout_question(theme, question, reponse)
 
 
 class WindowManager(ScreenManager):
@@ -332,7 +332,8 @@ class MyMainApp(App):
 
     def build(self):
         return Builder.load_file(
-            'C:\\Users\\User\\Documents\\GitHub\\Projet-Python\\View\\interface_graphique_kivy.kv',
+            'C:\\Users\\Gros\\Documents\\Développement informatique II'
+            '\\Projet-Python\\View\\interface_graphique_kivy.kv',
             encoding='utf8')
 
 

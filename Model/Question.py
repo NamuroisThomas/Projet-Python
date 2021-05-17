@@ -1,7 +1,9 @@
 import json
 
+from Model.exception import ErreurCustomiser
 
-class Question:
+
+class Question(ErreurCustomiser):
 
     def __init__(self, question: str, reponse: str):
         self.__question = question
@@ -13,7 +15,7 @@ class Question:
     def reponse(self):
         return self.__reponse
 
-    def ajout_question(choix_theme: str, ma_question: str, ma_reponse: str):
+    def ajout_question(self, choix_theme: str, ma_question: str, ma_reponse: str):
         """
         Cette fonction permet ajouter une question dans le fichier questions.json
         PRE: choix_theme,ma_question,proposition et ma_reponse sont des strings
@@ -29,10 +31,8 @@ class Question:
             with open('../questions/questions.json', 'w') as question_push:
                 json.dump(question, question_push)
 
-        except FileNotFoundError:
-            print('Fichier introuvable.')
-
-        except IOError:
-            print('Erreur IO.')
+        except Exception as error:
+            print('Un erreur à été détecté ')
+            self.gestion_erreur(error)
 
         return question

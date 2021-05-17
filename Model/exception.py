@@ -1,10 +1,13 @@
 import subprocess
 
 
-class ErreurCustomiser(Exception):
-    def __init__(self, *args):
+class ErreurCustomiser:
+    """
+    Cette classe me permet l'execption erreur
+    """
 
-        if Exception == FileNotFoundError or IOError:
+    def gestion_erreur(self, erreur):
+        if isinstance(erreur, (FileNotFoundError, IOError)):
 
             print("Bienvenue sur la fonction permettant la gestion erreur")
             demande = input("Je suis face à une erreur et je ne sais pas quoi faire ? "

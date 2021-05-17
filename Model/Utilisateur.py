@@ -44,8 +44,9 @@ class Utilisateurs(ErreurCustomiser):
 
                 Utilisateurs.ajout_id(self)
 
-        except ErreurCustomiser:
+        except Exception as error:
             print('Un erreur à été détecté ')
+            self.gestion_erreur(error)
 
     def ajout_id(self):
 
