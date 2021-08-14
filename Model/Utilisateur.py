@@ -2,11 +2,10 @@
 # - * - codage: utf-8 - * -
 
 import csv
+from erreur.Erreur import ErreurCustomiser
 
-from Model.exception import ErreurCustomiser
 
-
-class Utilisateurs(ErreurCustomiser):
+class Utilisateurs:
 
     def __init__(self, nom: str, prenom: str, pseudo: str):
 
@@ -44,8 +43,17 @@ class Utilisateurs(ErreurCustomiser):
 
                 Utilisateurs.ajout_id(self)
 
-        except ErreurCustomiser:
-            print('Un erreur à été détecté ')
+        except FileNotFoundError:
+            print('Fichier introuvable.')
+            erreur_FileNotFoundError = ErreurCustomiser('FileNotFoundError')
+            erreur_FileNotFoundError.sauvegarde_erreur()
+
+
+
+        except IOError:
+            print('Erreur IO.')
+            erreur_IOError = ErreurCustomiser('Erreur IO.')
+            erreur_IOError.sauvegarde_erreur()
 
     def ajout_id(self):
 
@@ -57,23 +65,63 @@ class Utilisateurs(ErreurCustomiser):
 
         fichier_id = []
 
-        with open('../utilisateur_sauvegarde/utilisateur.csv', 'r') as fichier_utilisateur:
-            lecture_utilisateurs = csv.DictReader(fichier_utilisateur)
-            id = 0
+        try:
 
-            for row in lecture_utilisateurs:
-                id += 1
-                row["ID"] = str(id)
-                fichier_id.append(row)
+            with open('../utilisateur_sauvegarde/utilisateur.csv', 'r') as fichier_utilisateur:
+                lecture_utilisateurs = csv.DictReader(fichier_utilisateur)
+                id = 0
 
-        with open('../utilisateur_sauvegarde/utilisateur.csv', 'w') as fichier_utilisateur_ecriture:
-            sauvegarde = csv.DictWriter(fichier_utilisateur_ecriture,
-                                        fieldnames=["ID", "Nom", "Prenom", "Pseudo"])
-            sauvegarde.writeheader()
-            sauvegarde.writerows(fichier_id)
+                for row in lecture_utilisateurs:
+                    id += 1
+                    row["ID"] = str(id)
+                    fichier_id.append(row)
+
+            with open('../utilisateur_sauvegarde/utilisateur.csv', 'w') as fichier_utilisateur_ecriture:
+                sauvegarde = csv.DictWriter(fichier_utilisateur_ecriture,
+                                            fieldnames=["ID", "Nom", "Prenom", "Pseudo"])
+                sauvegarde.writeheader()
+                sauvegarde.writerows(fichier_id)
+
+        except FileNotFoundError:
+            print('Fichier introuvable.')
+            erreur_FileNotFoundError = ErreurCustomiser('FileNotFoundError')
+            erreur_FileNotFoundError.sauvegarde_erreur()
 
 
-"""
+
+        except IOError:
+            print('Erreur IO.')
+            erreur_IOError = ErreurCustomiser('Erreur IO.')
+            erreur_IOError.sauvegarde_erreur()
+
+    def verification_ajout_utilisateur(self):
+
+        dernier_utilisateur = []
+
+        try:
+            with open('../utilisateur_sauvegarde/utilisateur.csv', 'r') as fichier_utilisateur:
+                lecture_utilisateurs = csv.reader(fichier_utilisateur)
+
+                for utilisateur in lecture_utilisateurs:
+
+                    dernier_utilisateur.append(utilisateur)
+                print(dernier_utilisateur[-2][1])
+                print(dernier_utilisateur[-2][2])
+                print(dernier_utilisateur[-2][3])
+
+
+
+
+        except FileNotFoundError:
+            print('Fichier introuvable.')
+
+        except IOError:
+            print('Erreur IO.')
+
+
+
+
+
 if __name__ == "__main__":
-    Utilisateurs("A", "A", "A").ajout_id()
-"""
+    Utilisateurs("TEST1", "TEST1", "TEST2").verification_ajout_utilisateur()
+

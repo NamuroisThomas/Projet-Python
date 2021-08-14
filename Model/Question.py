@@ -1,4 +1,5 @@
 import json
+from erreur.Erreur import ErreurCustomiser
 
 
 class Question:
@@ -13,7 +14,7 @@ class Question:
     def reponse(self):
         return self.__reponse
 
-    def ajout_question(choix_theme: str, ma_question: str, ma_reponse: str):
+    def ajout_question(self, choix_theme: str, ma_question: str, ma_reponse: str):
         """
         Cette fonction permet ajouter une question dans le fichier questions.json
         PRE: choix_theme,ma_question,proposition et ma_reponse sont des strings
@@ -31,8 +32,12 @@ class Question:
 
         except FileNotFoundError:
             print('Fichier introuvable.')
+            ErreurCustomiser('FileNotFoundError').gestion_erreur('FileNotFoundError')
+
+
 
         except IOError:
             print('Erreur IO.')
+            ErreurCustomiser('Erreur IO.').gestion_erreur('Erreur IO.')
 
         return question
