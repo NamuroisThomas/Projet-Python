@@ -1,9 +1,8 @@
 import json
+from erreur.Erreur import ErreurCustomiser
 
-from Model.exception import ErreurCustomiser
 
-
-class Question(ErreurCustomiser):
+class Question:
 
     def __init__(self, question: str, reponse: str):
         self.__question = question
@@ -31,8 +30,14 @@ class Question(ErreurCustomiser):
             with open('../questions/questions.json', 'w') as question_push:
                 json.dump(question, question_push)
 
-        except Exception as error:
-            print('Un erreur à été détecté ')
-            self.gestion_erreur(error)
+        except FileNotFoundError:
+            print('Fichier introuvable.')
+            ErreurCustomiser('FileNotFoundError').gestion_erreur('FileNotFoundError')
+
+
+
+        except IOError:
+            print('Erreur IO.')
+            ErreurCustomiser('Erreur IO.').gestion_erreur('Erreur IO.')
 
         return question
