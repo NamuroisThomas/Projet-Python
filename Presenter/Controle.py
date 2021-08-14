@@ -21,6 +21,9 @@ def choix_interface():
     elif demande_choix == "GUI":
         gui.start_gui()
 
+    else:
+        print("Veuillez respecter la saisie demandée")
+        choix_interface()
 
 def commencer_jeu():
     """
@@ -66,7 +69,7 @@ def jouer(nom, prenom, pseudo):
             f"{questions.question()}\n,veuillez choisir la lettre correspondant à la réponses  :  ")
         # correspond a nos questions
         # cette condition nous permet de vérifier si la réponse a cette question égale a nos reponses définis avant
-
+        
         if questions_demande == questions.reponse():
 
             score += 1
@@ -75,7 +78,9 @@ def jouer(nom, prenom, pseudo):
         else:
 
             print("mauvaise réponse")
+
             print(f"la bonne réponse étais : {questions.question()}")
+
 
     print(f"votre score est de {score} / {len(jeu.tableau_question_partie())}")
 
