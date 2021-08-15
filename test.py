@@ -1,6 +1,8 @@
 import os
 import os.path
 import unittest
+from unittest import TestCase
+
 
 
 
@@ -8,6 +10,8 @@ import pandas as pd
 import csv
 
 from erreur.Erreur import ErreurCustomiser
+
+
 from Model.Question import Question
 from Model.Utilisateur import Utilisateurs
 
@@ -96,30 +100,6 @@ class TestUtilisateur(unittest.TestCase):
                 erreur_IOError.sauvegarde_erreur()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         else:
             print("le fichier est introuvable ou ne peut être lue")
 
@@ -157,20 +137,19 @@ class TestUtilisateur(unittest.TestCase):
 
 class TestQuestion(unittest.TestCase):
     """
-   Test unitaire de la classe Question
    Fait par thomas Namurois
 
     """
 
-    def test_init(self):
+    def test_question(self):
         self.assertEqual(Question("Qui est TK78 ? : (a) Héro (b) Youtubeur (c) Président", 'a').question(),
                          "Qui est TK78 ? : (a) Héro (b) Youtubeur (c) Président")
-        self.assertEqual(Question("Qui est TK78 ? : (a) Héro (b) Youtubeur (c) Président", 'b').reponse(),
-                         'b')
+        self.assertEqual(Question("Quelle est la capital de la Belgique ?: (a)Paris, (b)Bruxelles, (c)Amsterdam",
+                                  'b').question(), "Quelle est la capital de la Belgique ?: (a)Paris, (b)Bruxelles, "
+                                                   "(c)Amsterdam")
 
-        self.assertEqual(
-            Question("Quelle est la capitale de la Belgique ?: (a)Berlin, (b)Sofia, (c)Bruxelles", "c").question(),
-            "Quelle est la capitale de la Belgique ?: (a)Berlin, (b)Sofia, (c)Bruxelles")
-        self.assertEqual(
-            Question("Quelle est la capitale de la Belgique ?: (a)Berlin, (b)Sofia, (c)Bruxelles", "c").reponse(),
-            'c')
+    def test_reponse(self):
+        self.assertEqual(Question("Qui est TK78 ? : (a) Héro (b) Youtubeur (c) Président", 'a').reponse(),
+                         "a")
+        self.assertEqual(Question("Quelle est la capital de la Belgique ?: (a)Paris, (b)Bruxelles, (c)Amsterdam",
+                                  'b').reponse(), "b")
