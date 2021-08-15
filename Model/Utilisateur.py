@@ -81,6 +81,7 @@ class Utilisateurs:
                                             fieldnames=["ID", "Nom", "Prenom", "Pseudo"])
                 sauvegarde.writeheader()
                 sauvegarde.writerows(fichier_id)
+                print("utilisateur bien ajoutée")
 
         except FileNotFoundError:
             print('Fichier introuvable.')
@@ -94,34 +95,17 @@ class Utilisateurs:
             erreur_IOError = ErreurCustomiser('Erreur IO.')
             erreur_IOError.sauvegarde_erreur()
 
-    def verification_ajout_utilisateur(self):
-
-        dernier_utilisateur = []
-
-        try:
-            with open('../utilisateur_sauvegarde/utilisateur.csv', 'r') as fichier_utilisateur:
-                lecture_utilisateurs = csv.reader(fichier_utilisateur)
-
-                for utilisateur in lecture_utilisateurs:
-
-                    dernier_utilisateur.append(utilisateur)
-                print(dernier_utilisateur[-2][1])
-                print(dernier_utilisateur[-2][2])
-                print(dernier_utilisateur[-2][3])
-
-
-
-
-        except FileNotFoundError:
-            print('Fichier introuvable.')
-
-        except IOError:
-            print('Erreur IO.')
 
 
 
 
 
+"""
 if __name__ == "__main__":
-    Utilisateurs("TEST1", "TEST1", "TEST2").verification_ajout_utilisateur()
+    Utilisateurs("PO","PO","PO").sauvegarde_utilisateur()
+"""
+
+
+
+
 
