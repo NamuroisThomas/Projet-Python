@@ -6,7 +6,9 @@ import View.interface_graphique as gui
 from Model.Jeu import Jeu
 from Model.Partie import Partie
 from Model.Question import Question
-from Model.Utilisateur import Utilisateurs
+from Model.Utilisateur import *
+
+
 
 
 def choix_interface():
@@ -21,9 +23,6 @@ def choix_interface():
     elif demande_choix == "GUI":
         gui.start_gui()
 
-    else:
-        print("Veuillez respecter la saisie demandée")
-        choix_interface()
 
 def commencer_jeu():
     """
@@ -39,7 +38,27 @@ def commencer_jeu():
     prenom = input("Veuillez donner votre Prénom :")
     pseudo = input("veuillez donner votre Pseudo :")
 
-    return jouer(nom, prenom, pseudo)
+    sexe = input("Vous êtes un homme ou une femme ? -> un homme taper = H et -> une femme = F : ")
+
+    if sexe == 'H':
+
+        utilisateur = Utilisateurs(nom, prenom, pseudo)
+        utilisateur.sauvegarde_utilisateur()
+        utilisateur.ajout_id()
+
+        return jouer(nom, prenom, pseudo)
+
+    elif sexe == 'F':
+
+        utilisatrices = Utilisatrices(nom,prenom,pseudo)
+        utilisatrices.sauvegarde_utilisateur()
+        utilisatrices.ajout_id()
+
+        return jouer(nom, prenom, pseudo)
+
+
+
+
 
 
 def jouer(nom, prenom, pseudo):
@@ -69,7 +88,7 @@ def jouer(nom, prenom, pseudo):
             f"{questions.question()}\n,veuillez choisir la lettre correspondant à la réponses  :  ")
         # correspond a nos questions
         # cette condition nous permet de vérifier si la réponse a cette question égale a nos reponses définis avant
-        
+
         if questions_demande == questions.reponse():
 
             score += 1
@@ -78,15 +97,11 @@ def jouer(nom, prenom, pseudo):
         else:
 
             print("mauvaise réponse")
-
             print(f"la bonne réponse étais : {questions.question()}")
-
 
     print(f"votre score est de {score} / {len(jeu.tableau_question_partie())}")
 
-    utilisateur = Utilisateurs(nom, prenom, pseudo)
-    utilisateur.sauvegarde_utilisateur()
-    utilisateur.ajout_id()
+
 
     ajouter_question = input("voulez vous ajoutez une question ? oui ou non :")
     if ajouter_question == "oui":
