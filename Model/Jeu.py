@@ -2,10 +2,15 @@ from Model.Partie import Partie
 from Model.Utilisateur import Utilisateurs
 
 
-class Jeu:
+class Jeu(Partie,Utilisateurs):
 
     def __init__(self, nom: str, prenom: str, pseudo: str):
-        self.__utilisateur = Utilisateurs(nom, prenom, pseudo)
+        Utilisateurs.__init__(self)
+        self.nom = nom
+        self.prenom = prenom
+        self.pseudo = pseudo
+        self.sexe = 'M'
+
         self.__partie = Partie()
         self.__score = 0
 
@@ -18,7 +23,7 @@ class Jeu:
         print("Bonne Jeu à vous")
 
     def utilisateur(self):
-        return self.__utilisateur.pseudo
+        return self.pseudo
 
     def tableau_question_partie(self):
         return self.__partie.tableauquestion()

@@ -9,8 +9,6 @@ from Model.Question import Question
 from Model.Utilisateur import *
 
 
-
-
 def choix_interface():
     """
     Cette fonction permet de choisir entre la Console ou Gui
@@ -42,29 +40,39 @@ def commencer_jeu():
 
     if sexe == 'H':
 
-        utilisateur = Utilisateurs(nom, prenom, pseudo)
-        utilisateur.sauvegarde_utilisateur()
-        utilisateur.ajout_id()
+        # utilisateur = Utilisateurs(nom, prenom, pseudo)
+        # utilisateur.sauvegarde_utilisateur()
+        # utilisateur.ajout_id()
 
-        return jouer(nom, prenom, pseudo)
+        lancement = Jeu(nom, prenom, pseudo)
+        lancement.sauvegarde_utilisateur()
+        lancement.ajout_id()
+
+        return jouer(lancement)
 
     elif sexe == 'F':
 
-        utilisatrices = Utilisatrices(nom,prenom,pseudo)
-        utilisatrices.sauvegarde_utilisateur()
-        utilisatrices.ajout_id()
+        # utilisatrices = Utilisatrices(nom, prenom, pseudo)
+        # utilisatrices.sauvegarde_utilisateur()
+        # utilisatrices.ajout_id()
 
-        return jouer(nom, prenom, pseudo)
+        lancement = Jeu(nom, prenom, pseudo)
+        lancement.sauvegarde_utilisateur()
+        lancement.ajout_id()
+
+        return jouer(lancement)
 
 
+# def mod_deux_joueurs():
+# joueur_un=
+# joueur_deux=
 
+# def jouer(nom, prenom, pseudo):
 
-
-
-def jouer(nom, prenom, pseudo):
+def jouer(jeu):
     # print(f" {pseudo},Bonne partie ")
 
-    jeu = Jeu(nom, prenom, pseudo)
+    # jeu = Jeu(nom, prenom, pseudo)
     jeu.affichage()
 
     """
@@ -96,12 +104,10 @@ def jouer(nom, prenom, pseudo):
 
         else:
 
-            print("mauvaise réponse")
+            print("mauvaise réponse " + jeu.pseudo)
             print(f"la bonne réponse étais : {questions.question()}")
 
     print(f"votre score est de {score} / {len(jeu.tableau_question_partie())}")
-
-
 
     ajouter_question = input("voulez vous ajoutez une question ? oui ou non :")
     if ajouter_question == "oui":
