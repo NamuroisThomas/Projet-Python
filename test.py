@@ -5,11 +5,14 @@ from unittest import TestCase
 
 import pandas as pd
 import csv
-
-from erreur.Erreur import ErreurCustomiser
+import Presenter.Controle
+from Model.Jeu import Jeu
+from Model.Partie import Partie
 
 from Model.Question import Question
 from Model.Utilisateur import Utilisateurs
+from Presenter.Controle import choix_interface
+from erreur.Erreur import ErreurCustomiser
 
 
 class TestUtilisateur(unittest.TestCase):
@@ -133,15 +136,72 @@ class TestQuestion(unittest.TestCase):
 
     """
 
-    def test_question(self):
+    def test_type_question(self):
+        self.assertEqual(type(Question("Qui est TK78 ? : (a) Héro (b) Youtubeur (c) Président", 'a').question()),
+                         type(""))
+        self.assertNotEqual(Question("Qui est TK78 ? : (a) Héro (b) Youtubeur (c) Président", 'a').question(),
+                            type(42))
+
+    def test_value_question(self):
         self.assertEqual(Question("Qui est TK78 ? : (a) Héro (b) Youtubeur (c) Président", 'a').question(),
                          "Qui est TK78 ? : (a) Héro (b) Youtubeur (c) Président")
-        self.assertEqual(Question("Quelle est la capital de la Belgique ?: (a)Paris, (b)Bruxelles, (c)Amsterdam",
-                                  'b').question(), "Quelle est la capital de la Belgique ?: (a)Paris, (b)Bruxelles, "
-                                                   "(c)Amsterdam")
+        self.assertNotEqual(Question("Qui est TK78 ? : (a) Héro (b) Youtubeur (c) Président", 'a').question(), 42)
 
-    def test_reponse(self):
-        self.assertEqual(Question("Qui est TK78 ? : (a) Héro (b) Youtubeur (c) Président", 'a').reponse(),
-                         "a")
-        self.assertEqual(Question("Quelle est la capital de la Belgique ?: (a)Paris, (b)Bruxelles, (c)Amsterdam",
-                                  'b').reponse(), "b")
+    def test_type_reponse(self):
+        self.assertEqual(type(Question("Qui est TK78 ? : (a) Héro (b) Youtubeur (c) Président", 'a').reponse()),
+                         type("a"))
+        self.assertNotEqual(type(Question("Qui est TK78 ? : (a) Héro (b) Youtubeur (c) Président", 'a').reponse()),
+                            type(42))
+
+    def test_value_reponse(self):
+        self.assertEqual(Question("Qui est TK78 ? : (a) Héro (b) Youtubeur (c) Président", 'a').reponse(), "a")
+        self.assertNotEqual(Question("Qui est TK78 ? : (a) Héro (b) Youtubeur (c) Président", 'a').reponse(), 42)
+
+
+class testJeu(unittest.TestCase):
+    """
+   Fait par thomas Namurois
+
+    """
+
+    def test_creation_Jeu(self):
+        jeu = Jeu("Namurois", "Thomas", "toto")
+
+        self.assertEqual(type(jeu.nom), type(""))
+        self.assertNotEqual(type(jeu.nom), type(42))
+        self.assertEqual(type(jeu.prenom), type(""))
+        self.assertNotEqual(type(jeu.prenom), type(42))
+        self.assertEqual(type(jeu.pseudo), type(""))
+        self.assertNotEqual(type(jeu.pseudo), type(42))
+
+        self.assertEqual(jeu.nom, "Namurois")
+        self.assertNotEqual(jeu.nom, "Namuroi")
+        self.assertNotEqual(jeu.nom, 42)
+        self.assertEqual(jeu.prenom, "Thomas")
+        self.assertNotEqual(jeu.prenom, "Thoma")
+        self.assertNotEqual(jeu.prenom, 42)
+        self.assertEqual(jeu.pseudo, "toto")
+        self.assertNotEqual(jeu.pseudo, "tot")
+        self.assertNotEqual(jeu.pseudo, 42)
+
+    def test_type_affichage(self):
+        self.assertEqual(type(Jeu("Namurois", "Thomas", "toto").affichage()), type(""))
+        self.assertNotEqual(type(Jeu("Namurois", "Thomas", "toto").affichage()), type(42))
+
+    def test_valeur_affichage(self):
+        self.assertEqual(Jeu("Namurois", "Thomas", "toto").affichage(), "Bon Jeu à vous")
+        self.assertNotEqual(Jeu("Namurois", "Thomas", "toto").affichage(), "Bon Jeu à vou")
+
+    def test__type_utilisateur(self):
+        self.assertEqual(type(Jeu("Namurois", "Thomas", "toto").utilisateur()), type(""))
+        self.assertNotEqual(type(Jeu("Namurois", "Thomas", "toto").utilisateur()), type(42))
+
+    def test_valeur_utilisateur(self):
+        self.assertEqual(Jeu("Namurois", "Thomas", "toto").utilisateur(), "toto")
+        self.assertNotEqual(Jeu("Namurois", "Thomas", "toto").utilisateur(), "tata")
+        self.assertNotEqual(Jeu("Namurois", "Thomas", "toto").utilisateur(), 42)
+
+    def test_type_tableau_question_partie(self):
+        self.assertEqual(type(Jeu("Namurois", "Thomas", "toto").tableau_question_partie()), type([]))
+        self.assertNotEqual(type(Jeu("Namurois", "Thomas", "toto").tableau_question_partie()), type(42))
+        self.assertNotEqual(type(Jeu("Namurois", "Thomas", "toto").tableau_question_partie()), type(""))

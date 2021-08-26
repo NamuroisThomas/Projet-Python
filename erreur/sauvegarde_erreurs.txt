@@ -1,3 +1,5 @@
 
 ======================================== A 19:41:12 , Erreur trouvée ========================================
 Une erreur à été détecté et la voici : Erreur IO.
+======================================== A 15:49:58 , Erreur trouvée ========================================
+Une erreur à été détecté et la voici : FileNotFoundError

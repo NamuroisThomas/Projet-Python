@@ -16,10 +16,10 @@ def choix_interface():
     demande_choix = input("Choisissez votre interface (Console ou GUI) : ")
 
     if demande_choix == "Console":
-        commencer_jeu()
+        return commencer_jeu()
 
     elif demande_choix == "GUI":
-        gui.start_gui()
+        return gui.start_gui()
 
 
 def commencer_jeu():
@@ -46,9 +46,10 @@ def commencer_jeu():
 
         lancement = Jeu(nom, prenom, pseudo)
         lancement.sauvegarde_utilisateur()
+        print(lancement.pseudo)
         lancement.ajout_id()
 
-        return jouer(lancement.nom,lancement.prenom,lancement.pseudo)
+        return jouer(lancement.nom, lancement.prenom, lancement.pseudo)
 
     elif sexe == 'F':
 
@@ -57,6 +58,7 @@ def commencer_jeu():
         utilisatrices.ajout_id()
 
         return jouer(utilisatrices.nom, utilisatrices.prenom, utilisatrices.pseudo)
+
 
 def jouer(nom, prenom, pseudo):
     # print(f" {pseudo},Bonne partie ")
@@ -114,7 +116,7 @@ def ajout_question():
     question = input("Quelle question voulez-vous ajouter ainsi que ses propositions ? : ")
     reponse = input("Quelle est la lettre correspondants à la question ? : ")
 
-    Question.ajout_question(theme, question, reponse)
+    Question(question, reponse).ajout_question(theme, question, reponse)
 
 
 if __name__ == "__main__":

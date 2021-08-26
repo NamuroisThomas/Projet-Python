@@ -10,9 +10,9 @@ class Utilisateurs:
 
     def __init__(self, nom: str, prenom: str, pseudo: str):
 
-        self.nom = ""
-        self.prenom = ""
-        self.pseudo = ""
+        self.nom = nom
+        self.prenom = prenom
+        self.pseudo = pseudo
         self.sexe = 'M'
 
     def pseudo(self):
