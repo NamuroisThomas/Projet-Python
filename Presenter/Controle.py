@@ -9,8 +9,6 @@ from Model.Question import Question
 from Model.Utilisateur import *
 
 
-
-
 def choix_interface():
     """
     Cette fonction permet de choisir entre la Console ou Gui
@@ -42,24 +40,23 @@ def commencer_jeu():
 
     if sexe == 'H':
 
-        utilisateur = Utilisateurs(nom, prenom, pseudo)
-        utilisateur.sauvegarde_utilisateur()
-        utilisateur.ajout_id()
+        # utilisateur = Utilisateurs(nom, prenom, pseudo)
+        # utilisateur.sauvegarde_utilisateur()
+        # utilisateur.ajout_id()
 
-        return jouer(nom, prenom, pseudo)
+        lancement = Jeu(nom, prenom, pseudo)
+        lancement.sauvegarde_utilisateur()
+        lancement.ajout_id()
+
+        return jouer(lancement.nom,lancement.prenom,lancement.pseudo)
 
     elif sexe == 'F':
 
-        utilisatrices = Utilisatrices(nom,prenom,pseudo)
+        utilisatrices = Utilisatrices(nom, prenom, pseudo)
         utilisatrices.sauvegarde_utilisateur()
         utilisatrices.ajout_id()
 
-        return jouer(nom, prenom, pseudo)
-
-
-
-
-
+        return jouer(utilisatrices.nom, utilisatrices.prenom, utilisatrices.pseudo)
 
 def jouer(nom, prenom, pseudo):
     # print(f" {pseudo},Bonne partie ")
@@ -96,12 +93,10 @@ def jouer(nom, prenom, pseudo):
 
         else:
 
-            print("mauvaise réponse")
+            print("mauvaise réponse ")
             print(f"la bonne réponse étais : {questions.question()}")
 
     print(f"votre score est de {score} / {len(jeu.tableau_question_partie())}")
-
-
 
     ajouter_question = input("voulez vous ajoutez une question ? oui ou non :")
     if ajouter_question == "oui":

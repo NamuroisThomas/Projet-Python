@@ -10,22 +10,22 @@ class Utilisateurs:
 
     def __init__(self, nom: str, prenom: str, pseudo: str):
 
-        self.__nom = nom
-        self.__prenom = prenom
-        self.__pseudo = pseudo
-        self.__sexe = 'M'
+        self.nom = ""
+        self.prenom = ""
+        self.pseudo = ""
+        self.sexe = 'M'
 
     def pseudo(self):
-        return self.__pseudo
+        return self.pseudo
 
     def prenom(self):
-        return self.__prenom
+        return self.prenom
 
     def nom(self):
-        return self.__nom
+        return self.nom
 
     def sexe(self):
-        return self.__sexe
+        return self.sexe
 
     def sauvegarde_utilisateur(self):
 
@@ -37,11 +37,11 @@ class Utilisateurs:
 
         try:
             with open("../utilisateur_sauvegarde/utilisateur.csv", "a", encoding='utf-8') as fichier_Utilisateur:
-                #entete = ['ID', "Nom", "Prenom", "Pseudo", "Sexe"]
-                donne = ['', self.__nom, self.__prenom, self.__pseudo, self.__sexe]
+                # entete = ['ID', "Nom", "Prenom", "Pseudo", "Sexe"]
+                donne = ['', self.nom, self.prenom, self.pseudo, self.sexe]
 
-                #csv_fichier = csv.DictWriter(fichier_Utilisateur, fieldnames=entete)
-                #csv_fichier.writeheader()
+                # csv_fichier = csv.DictWriter(fichier_Utilisateur, fieldnames=entete)
+                # csv_fichier.writeheader()
 
                 sauvegarde = csv.writer(fichier_Utilisateur)
                 sauvegarde.writerow(donne)
@@ -84,7 +84,7 @@ class Utilisateurs:
 
             with open('../utilisateur_sauvegarde/utilisateur.csv', 'w') as fichier_utilisateur_ecriture:
                 sauvegarde = csv.DictWriter(fichier_utilisateur_ecriture,
-                                            fieldnames=["ID", "Nom", "Prenom", "Pseudo","Sexe"])
+                                            fieldnames=["ID", "Nom", "Prenom", "Pseudo", "Sexe"])
                 sauvegarde.writeheader()
                 sauvegarde.writerows(fichier_id)
 
@@ -135,7 +135,6 @@ class Utilisatrices(Utilisateurs):
         super().__init__(nom, prenom, pseudo)
         self.__sexe = 'F'
 
-
     def sexe(self):
         return self.__sexe
 
@@ -149,11 +148,11 @@ class Utilisatrices(Utilisateurs):
 
         try:
             with open("../utilisateur_sauvegarde/utilisateur.csv", "a", encoding='utf-8') as fichier_Utilisateur:
-                #entete = ['ID', "Nom", "Prenom", "Pseudo", "Sexe"]
+                # entete = ['ID', "Nom", "Prenom", "Pseudo", "Sexe"]
                 donne = ['', self.__nom, self.__prenom, self.__pseudo, self.__sexe]
 
-                #csv_fichier = csv.DictWriter(fichier_Utilisateur, fieldnames=entete)
-                #csv_fichier.writeheader()
+                # csv_fichier = csv.DictWriter(fichier_Utilisateur, fieldnames=entete)
+                # csv_fichier.writeheader()
 
                 sauvegarde = csv.writer(fichier_Utilisateur)
                 sauvegarde.writerow(donne)
@@ -196,7 +195,7 @@ class Utilisatrices(Utilisateurs):
 
             with open('../utilisateur_sauvegarde/utilisateur.csv', 'w') as fichier_utilisateur_ecriture:
                 sauvegarde = csv.DictWriter(fichier_utilisateur_ecriture,
-                                            fieldnames=["ID", "Nom", "Prenom", "Pseudo","Sexe"])
+                                            fieldnames=["ID", "Nom", "Prenom", "Pseudo", "Sexe"])
                 sauvegarde.writeheader()
                 sauvegarde.writerows(fichier_id)
 
@@ -214,6 +213,6 @@ class Utilisatrices(Utilisateurs):
 
 
 if __name__ == "__main__":
-     Utilisatrices("TEST","UTILISATRICE","UUUU").sauvegarde_utilisateur()
+    Utilisatrices("TEST", "UTILISATRICE", "UUUU").sauvegarde_utilisateur()
 
-    #Utilisateurs("TEST1", "TEST1", "TEST2").sauvegarde_utilisateur()
+# Utilisateurs("TEST1", "TEST1", "TEST2").sauvegarde_utilisateur()
