@@ -48,31 +48,20 @@ def commencer_jeu():
         lancement.sauvegarde_utilisateur()
         lancement.ajout_id()
 
-        return jouer(lancement)
+        return jouer(lancement.nom,lancement.prenom,lancement.pseudo)
 
     elif sexe == 'F':
 
-        # utilisatrices = Utilisatrices(nom, prenom, pseudo)
-        # utilisatrices.sauvegarde_utilisateur()
-        # utilisatrices.ajout_id()
+        utilisatrices = Utilisatrices(nom, prenom, pseudo)
+        utilisatrices.sauvegarde_utilisateur()
+        utilisatrices.ajout_id()
 
-        lancement = Jeu(nom, prenom, pseudo)
-        lancement.sauvegarde_utilisateur()
-        lancement.ajout_id()
+        return jouer(utilisatrices.nom, utilisatrices.prenom, utilisatrices.pseudo)
 
-        return jouer(lancement)
-
-
-# def mod_deux_joueurs():
-# joueur_un=
-# joueur_deux=
-
-# def jouer(nom, prenom, pseudo):
-
-def jouer(jeu):
+def jouer(nom, prenom, pseudo):
     # print(f" {pseudo},Bonne partie ")
 
-    # jeu = Jeu(nom, prenom, pseudo)
+    jeu = Jeu(nom, prenom, pseudo)
     jeu.affichage()
 
     """
@@ -104,7 +93,7 @@ def jouer(jeu):
 
         else:
 
-            print("mauvaise réponse " + jeu.pseudo)
+            print("mauvaise réponse ")
             print(f"la bonne réponse étais : {questions.question()}")
 
     print(f"votre score est de {score} / {len(jeu.tableau_question_partie())}")

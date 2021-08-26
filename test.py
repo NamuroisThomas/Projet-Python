@@ -3,14 +3,10 @@ import os.path
 import unittest
 from unittest import TestCase
 
-
-
-
 import pandas as pd
 import csv
 
 from erreur.Erreur import ErreurCustomiser
-
 
 from Model.Question import Question
 from Model.Utilisateur import Utilisateurs
@@ -50,8 +46,7 @@ class TestUtilisateur(unittest.TestCase):
         self.assertTrue(str(type(Utilisateurs('tom', 'tim', 'TOTO145').sauvegarde_utilisateur)), "_csv.writer")
 
         PATH = 'utilisateur_sauvegarde/utilisateur.csv'
-        user = ['','POPPY','CAT','DUCK']
-
+        user = ['', 'POPPY', 'CAT', 'DUCK']
 
         with open(PATH, "a", encoding='utf-8') as fichier_Utilisateur:
 
@@ -68,12 +63,9 @@ class TestUtilisateur(unittest.TestCase):
                 with open(PATH, 'r') as fichier_utilisateur:
                     lecture_utilisateurs = csv.DictReader(fichier_utilisateur)
 
-
                     for row in lecture_utilisateurs:
-
-                       users.append([row['Nom'],row['Prenom'],row['Pseudo']])
+                        users.append([row['Nom'], row['Prenom'], row['Pseudo']])
                     print(users[-1])
-
 
                     if users[-1][0] == user[1] and users[-1][1] == user[2] and users[-1][2] == user[3]:
 

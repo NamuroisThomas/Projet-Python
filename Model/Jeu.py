@@ -1,15 +1,11 @@
 from Model.Partie import Partie
-from Model.Utilisateur import Utilisateurs
+from Model.Utilisateur import Utilisateurs, Utilisatrices
 
 
-class Jeu(Partie,Utilisateurs):
+class Jeu(Partie, Utilisateurs):
 
     def __init__(self, nom: str, prenom: str, pseudo: str):
-        Utilisateurs.__init__(self)
-        self.nom = nom
-        self.prenom = prenom
-        self.pseudo = pseudo
-        self.sexe = 'M'
+        Utilisateurs.__init__(self, nom, prenom, pseudo)
 
         self.__partie = Partie()
         self.__score = 0

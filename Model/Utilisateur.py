@@ -8,24 +8,24 @@ from erreur.Erreur import ErreurCustomiser
 
 class Utilisateurs:
 
-    def __init__(self):
+    def __init__(self, nom: str, prenom: str, pseudo: str):
 
-        self.__nom = ""
-        self.__prenom = ""
-        self.__pseudo = ""
-        self.__sexe = 'M'
+        self.nom = ""
+        self.prenom = ""
+        self.pseudo = ""
+        self.sexe = 'M'
 
     def pseudo(self):
-        return self.__pseudo
+        return self.pseudo
 
     def prenom(self):
-        return self.__prenom
+        return self.prenom
 
     def nom(self):
-        return self.__nom
+        return self.nom
 
     def sexe(self):
-        return self.__sexe
+        return self.sexe
 
     def sauvegarde_utilisateur(self):
 
@@ -38,7 +38,7 @@ class Utilisateurs:
         try:
             with open("../utilisateur_sauvegarde/utilisateur.csv", "a", encoding='utf-8') as fichier_Utilisateur:
                 # entete = ['ID', "Nom", "Prenom", "Pseudo", "Sexe"]
-                donne = ['', self.__nom, self.__prenom, self.__pseudo, self.__sexe]
+                donne = ['', self.nom, self.prenom, self.pseudo, self.sexe]
 
                 # csv_fichier = csv.DictWriter(fichier_Utilisateur, fieldnames=entete)
                 # csv_fichier.writeheader()
