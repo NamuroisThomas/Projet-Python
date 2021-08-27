@@ -1,4 +1,12 @@
-ID,Nom,Prenom,Pseudo
-,jean,pierre,blabla
-,jean1,pierre1,blabla1
-,jean12,pierre12,blabla2
+	ID	Nom	Prenom	Pseudo	Sexe
+0	1.0	Namurois	Namurois	Namurois	M
+1	2.0	POPPY	CAT	DUCK	
+2	3.0	t	t	t	M
+3		POPPY	CAT	DUCK	
+4		POPPY	CAT	DUCK	
+5		POPPY	CAT	DUCK	
+6		POPPY	CAT	DUCK	
+7		POPPY	CAT	DUCK	
+8		POPPY	CAT	DUCK	
+9		POPPY	CAT	DUCK	
+10		POPPY	CAT	DUCK	

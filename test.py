@@ -3,15 +3,19 @@ import os.path
 import unittest
 from unittest import TestCase
 
-import pandas as pd
 import csv
-import Presenter.Controle
-from Model.Jeu import Jeu
-from Model.Partie import Partie
+import os
+import os.path
+import unittest
+from datetime import datetime
 
+import pandas as pd
+
+from Model.Partie import Partie
 from Model.Question import Question
 from Model.Utilisateur import Utilisateurs
-from Presenter.Controle import choix_interface
+from Model.Utilisateur import Utilisatrices
+from Model.Jeu import Jeu
 from erreur.Erreur import ErreurCustomiser
 
 
@@ -26,44 +30,73 @@ class TestUtilisateur(unittest.TestCase):
 
         test_user_2 = Utilisateurs("Tom", "Jedusor", "VOSpo")
 
-        self.assertEqual(test_user_1.nom(), 'Pierre')
-        self.assertEqual(test_user_2.nom(), "Tom")
+        self.assertEqual(test_user_1.nom, 'Pierre')
+        self.assertEqual(test_user_2.nom, "Tom")
+
+        self.assertNotEqual(test_user_1.nom, "Tom")
+        self.assertNotEqual(test_user_2.nom, 'Pierre')
 
     def test_proprety_user_firstname(self):
         test_user_1 = Utilisateurs("Pierre", "Patric", "Poire789")
 
         test_user_2 = Utilisateurs("Tom", "Jedusor", "VOSpo")
 
-        self.assertEqual(test_user_1.prenom(), 'Patric')
-        self.assertEqual(test_user_2.prenom(), "Jedusor")
+        self.assertEqual(test_user_1.prenom, 'Patric')
+        self.assertEqual(test_user_2.prenom, "Jedusor")
+
+        self.assertNotEqual(test_user_1.prenom, 'PaPA')
+        self.assertNotEqual(test_user_2.prenom, "Juda")
 
     def test_proprety_user_pseudo(self):
         test_user_1 = Utilisateurs("Pierre", "Patric", "Poire789")
 
         test_user_2 = Utilisateurs("Tom", "Jedusor", "VOSpo")
 
-        self.assertEqual(test_user_1.pseudo(), 'Poire789')
-        self.assertEqual(test_user_2.pseudo(), "VOSpo")
+        self.assertEqual(test_user_1.pseudo, 'Poire789')
+        self.assertEqual(test_user_2.pseudo, "VOSpo")
+
+        self.assertNotEqual(test_user_1.pseudo, 'PoikjQSnjkdne789')
+        self.assertNotEqual(test_user_2.pseudo, "VOSkosJDFkosJFKOpo")
+
+
+class test_utilisatrices(unittest.TestCase):
+    def test_creation_utilisatrice(self):
+        self.assertEqual(type(Utilisatrices("Bentahri","Merwane","Tata").nom), type(""))
+        self.assertNotEqual(type(Utilisatrices("Bentahri", "Merwane", "Tata").nom), type(42))
+        self.assertEqual(type(Utilisatrices("Bentahri","Merwane","Tata").prenom), type(""))
+        self.assertNotEqual(type(Utilisatrices("Bentahri", "Merwane", "Tata").prenom), type(42))
+        self.assertEqual(type(Utilisatrices("Bentahri", "Merwane", "Tata").pseudo), type(""))
+        self.assertNotEqual(type(Utilisatrices("Bentahri", "Merwane", "Tata").pseudo), type(42))
+
+        self.assertEqual(Utilisatrices("Bentahri", "Merwane", "Tata").nom, "Bentahri")
+        self.assertNotEqual(Utilisatrices("Bentahri", "Merwane", "Tata").nom, "Bentahr")
+        self.assertNotEqual(Utilisatrices("Bentahri", "Merwane", "Tata").nom, 42)
+        self.assertEqual(Utilisatrices("Bentahri", "Merwane", "Tata").prenom, "Merwane")
+        self.assertNotEqual(Utilisatrices("Bentahri", "Merwane", "Tata").prenom, "Merwan")
+        self.assertNotEqual(Utilisatrices("Bentahri", "Merwane", "Tata").prenom, 42)
+        self.assertEqual(Utilisatrices("Bentahri", "Merwane", "Tata").pseudo, "Tata")
+        self.assertNotEqual(Utilisatrices("Bentahri", "Merwane", "Tata").pseudo, "Tat")
+        self.assertNotEqual(Utilisatrices("Bentahri", "Merwane", "Tata").pseudo, 42)
 
     def test_sauvegarde_utilisateur(self):
         self.assertTrue(str(type(Utilisateurs('tom', 'tim', 'TOTO145').sauvegarde_utilisateur)), "_csv.writer")
 
-        PATH = 'utilisateur_sauvegarde/utilisateur.csv'
+        path = 'utilisateur_sauvegarde/utilisateur.csv'
         user = ['', 'POPPY', 'CAT', 'DUCK']
 
-        with open(PATH, "a", encoding='utf-8') as fichier_Utilisateur:
+        with open(path, "a", encoding='utf-8') as fichier_Utilisateur:
 
             sauvegarde = csv.writer(fichier_Utilisateur)
             sauvegarde.writerow(user)
 
-        if os.path.isfile(PATH) and os.access(PATH, os.W_OK):
+        if os.path.isfile(path) and os.access(path, os.W_OK):
             print("le fichier existe et peut être lue")
 
             users = []
 
             try:
 
-                with open(PATH, 'r') as fichier_utilisateur:
+                with open(path, 'r') as fichier_utilisateur:
                     lecture_utilisateurs = csv.DictReader(fichier_utilisateur)
 
                     for row in lecture_utilisateurs:
@@ -77,35 +110,29 @@ class TestUtilisateur(unittest.TestCase):
                     else:
                         print('Utilisateur Test non ajouté')
 
-
-
-
-
-
             except FileNotFoundError:
+
                 print('Fichier introuvable.')
-                erreur_FileNotFoundError = ErreurCustomiser('FileNotFoundError')
-                erreur_FileNotFoundError.sauvegarde_erreur()
-
-
+                erreur_filenotfounderror = ErreurCustomiser('FileNotFoundError')
+                erreur_filenotfounderror.sauvegarde_erreur()
 
             except IOError:
-                print('Erreur IO.')
-                erreur_IOError = ErreurCustomiser('Erreur IO.')
-                erreur_IOError.sauvegarde_erreur()
 
+                print('Erreur IO.')
+                erreur_ioerror = ErreurCustomiser('Erreur IO.')
+                erreur_ioerror.sauvegarde_erreur()
 
         else:
             print("le fichier est introuvable ou ne peut être lue")
 
     def test_ajout_id(self):
         self.assertTrue(str(type(Utilisateurs('tom', 'tim', 'TOTO145').ajout_id)), "_csv.writer" and "_csv.reader")
-        PATH = 'utilisateur_sauvegarde/utilisateur.csv'
+        path = 'utilisateur_sauvegarde/utilisateur.csv'
 
-        if os.path.isfile(PATH) and os.access(PATH, os.R_OK):
+        if os.path.isfile(path) and os.access(path, os.R_OK):
             print("le fichier existe et peut être lue")
 
-            df = pd.read_csv(PATH)
+            df = pd.read_csv(path)
             # lecture du fichier utilisateur.csv , ou sont stocker les données utilisateurs
 
             data = df.head()
@@ -128,6 +155,99 @@ class TestUtilisateur(unittest.TestCase):
 
         else:
             print("le fichier est introuvable ou ne peut être lue")
+
+
+class TestErreurCustomiser(unittest.TestCase):
+    """
+    Test unitaire de la classe ErreurCustomiser
+    Fait par Ben-Tahri Merwane
+    """
+
+    def test_Erreurs(self):
+
+        self.assertEqual(ErreurCustomiser("FileNotFoundError").erreurs(), "FileNotFoundError")
+        self.assertEqual(ErreurCustomiser("IOError").erreurs(), "IOError")
+
+        self.assertNotEqual(ErreurCustomiser("FileNotFoundError").erreurs(), "error")
+        self.assertNotEqual(ErreurCustomiser("IOError").erreurs(), "error")
+
+    def test_sauvegarde_erreur(self):
+
+        path = 'erreur/sauvegarde_erreurs.txt'
+        erreur = "TEST FONCTIONELLE"
+        try:
+            with open(path, 'a', encoding='utf-8') as fichier_des_erreurs:
+
+                if os.path.isfile(path) and os.access(path, os.W_OK):
+                    print("le fichier existe et peut être lue ou écrire dedans")
+                    now = datetime.now()
+
+                    message_detection_erreur = f"=" * 40 + f" A {now} , Erreur trouvée " + "=" * 40
+                    message_erreur = f"\nUne erreur à été détecté et la voici : {erreur}"
+
+                    fichier_des_erreurs.write("\n")
+                    fichier_des_erreurs.write(message_detection_erreur)
+                    fichier_des_erreurs.write(message_erreur)
+
+                    # fichier_des_erreurs.write(f"=" * 40 + " Bienvenue dans votre fichier d'erreurs" + "=" * 40)
+                    # ichier_des_erreurs.write(message_de_debut)
+                    with open(path, "r", encoding='utf-8') as f:
+                        message_erreur_sauvergarde = f"Une erreur à été détecté et la voici : {erreur}"
+                        # juste les 5 dernières lignes, mais Python a en effet lu tout le fichier
+                        for ligne in f.readlines()[-1:]:
+                            print(ligne)
+
+                        if ligne == message_erreur_sauvergarde:
+                            print("erreur bien sauvegarder")
+
+                        else:
+                            print("erreur non sauvegardé")
+
+                else:
+                    print("le fichier est introuvable ou ne peut être lue")
+
+        except IOError:
+            print('Erreur IO.')
+
+
+class TestPartie(unittest.TestCase):
+    """
+      Test unitaire de la classe Partie
+      Fait par Ben-Tahri Merwane
+       """
+
+    def test_affiche(self):
+        partie1 = Partie()
+
+        self.assertEqual(partie1.affichage(), "Bonne Partie à vous")
+        self.assertNotEqual(partie1.affichage(), "Bonne Partie à toi")
+
+        partie2 = Partie()
+
+        self.assertEqual(partie2.affichage(), "Bonne Partie à vous")
+        self.assertNotEqual(partie2.affichage(), "Bonne Partie à vou")
+
+    def test_theme(self):
+        partie1 = Partie()
+
+        self.assertEqual(partie1.le_theme(), '')
+        self.assertNotEqual(partie1.le_theme(), 'POMME')
+
+        partie2 = Partie()
+
+        self.assertEqual(partie2.le_theme(), '')
+        self.assertNotEqual(partie2.le_theme(), 'thème')
+
+    def test_tableauQuestion(self):
+        partie1 = Partie()
+
+        self.assertEqual(partie1.tableauquestion(), [])
+        self.assertNotEqual(partie1.tableauquestion(), 'tableauQuestion')
+
+        partie2 = Partie()
+
+        self.assertEqual(partie2.tableauquestion(), [])
+        self.assertNotEqual(partie2.tableauquestion(), {})
 
 
 class TestQuestion(unittest.TestCase):
