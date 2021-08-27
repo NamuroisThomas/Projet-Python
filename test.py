@@ -1,8 +1,3 @@
-import os
-import os.path
-import unittest
-from unittest import TestCase
-
 import csv
 import os
 import os.path
@@ -30,53 +25,53 @@ class TestUtilisateur(unittest.TestCase):
 
         test_user_2 = Utilisateurs("Tom", "Jedusor", "VOSpo")
 
-        self.assertEqual(test_user_1.nom, 'Pierre')
-        self.assertEqual(test_user_2.nom, "Tom")
+        self.assertEqual(test_user_1.nom(), 'Pierre')
+        self.assertEqual(test_user_2.nom(), "Tom")
 
-        self.assertNotEqual(test_user_1.nom, "Tom")
-        self.assertNotEqual(test_user_2.nom, 'Pierre')
+        self.assertNotEqual(test_user_1.nom(), "Tom")
+        self.assertNotEqual(test_user_2.nom(), 'Pierre')
 
     def test_proprety_user_firstname(self):
         test_user_1 = Utilisateurs("Pierre", "Patric", "Poire789")
 
         test_user_2 = Utilisateurs("Tom", "Jedusor", "VOSpo")
 
-        self.assertEqual(test_user_1.prenom, 'Patric')
-        self.assertEqual(test_user_2.prenom, "Jedusor")
+        self.assertEqual(test_user_1.prenom(), 'Patric')
+        self.assertEqual(test_user_2.prenom(), "Jedusor")
 
-        self.assertNotEqual(test_user_1.prenom, 'PaPA')
-        self.assertNotEqual(test_user_2.prenom, "Juda")
+        self.assertNotEqual(test_user_1.prenom(), 'PaPA')
+        self.assertNotEqual(test_user_2.prenom(), "Juda")
 
     def test_proprety_user_pseudo(self):
         test_user_1 = Utilisateurs("Pierre", "Patric", "Poire789")
 
         test_user_2 = Utilisateurs("Tom", "Jedusor", "VOSpo")
 
-        self.assertEqual(test_user_1.pseudo, 'Poire789')
-        self.assertEqual(test_user_2.pseudo, "VOSpo")
+        self.assertEqual(test_user_1.pseudo(), 'Poire789')
+        self.assertEqual(test_user_2.pseudo(), "VOSpo")
 
-        self.assertNotEqual(test_user_1.pseudo, 'PoikjQSnjkdne789')
-        self.assertNotEqual(test_user_2.pseudo, "VOSkosJDFkosJFKOpo")
+        self.assertNotEqual(test_user_1.pseudo(), 'PoikjQSnjkdne789')
+        self.assertNotEqual(test_user_2.pseudo(), "VOSkosJDFkosJFKOpo")
 
 
 class test_utilisatrices(unittest.TestCase):
     def test_creation_utilisatrice(self):
-        self.assertEqual(type(Utilisatrices("Bentahri","Merwane","Tata").nom), type(""))
-        self.assertNotEqual(type(Utilisatrices("Bentahri", "Merwane", "Tata").nom), type(42))
-        self.assertEqual(type(Utilisatrices("Bentahri","Merwane","Tata").prenom), type(""))
-        self.assertNotEqual(type(Utilisatrices("Bentahri", "Merwane", "Tata").prenom), type(42))
-        self.assertEqual(type(Utilisatrices("Bentahri", "Merwane", "Tata").pseudo), type(""))
-        self.assertNotEqual(type(Utilisatrices("Bentahri", "Merwane", "Tata").pseudo), type(42))
+        self.assertEqual(type(Utilisatrices("Bentahri","Merwane","Tata").nom()), type(""))
+        self.assertNotEqual(type(Utilisatrices("Bentahri", "Merwane", "Tata").nom()), type(42))
+        self.assertEqual(type(Utilisatrices("Bentahri","Merwane","Tata").prenom()), type(""))
+        self.assertNotEqual(type(Utilisatrices("Bentahri", "Merwane", "Tata").prenom()), type(42))
+        self.assertEqual(type(Utilisatrices("Bentahri", "Merwane", "Tata").pseudo()), type(""))
+        self.assertNotEqual(type(Utilisatrices("Bentahri", "Merwane", "Tata").pseudo()), type(42))
 
-        self.assertEqual(Utilisatrices("Bentahri", "Merwane", "Tata").nom, "Bentahri")
-        self.assertNotEqual(Utilisatrices("Bentahri", "Merwane", "Tata").nom, "Bentahr")
-        self.assertNotEqual(Utilisatrices("Bentahri", "Merwane", "Tata").nom, 42)
-        self.assertEqual(Utilisatrices("Bentahri", "Merwane", "Tata").prenom, "Merwane")
-        self.assertNotEqual(Utilisatrices("Bentahri", "Merwane", "Tata").prenom, "Merwan")
-        self.assertNotEqual(Utilisatrices("Bentahri", "Merwane", "Tata").prenom, 42)
-        self.assertEqual(Utilisatrices("Bentahri", "Merwane", "Tata").pseudo, "Tata")
+        self.assertEqual(Utilisatrices("Bentahri", "Merwane", "Tata").nom(), "Bentahri")
+        self.assertNotEqual(Utilisatrices("Bentahri", "Merwane", "Tata").nom(), "Bentahr")
+        self.assertNotEqual(Utilisatrices("Bentahri", "Merwane", "Tata").nom(), 42)
+        self.assertEqual(Utilisatrices("Bentahri", "Merwane", "Tata").prenom(), "Merwane")
+        self.assertNotEqual(Utilisatrices("Bentahri", "Merwane", "Tata").prenom(), "Merwan")
+        self.assertNotEqual(Utilisatrices("Bentahri", "Merwane", "Tata").prenom(), 42)
+        self.assertEqual(Utilisatrices("Bentahri", "Merwane", "Tata").pseudo(), "Tata")
         self.assertNotEqual(Utilisatrices("Bentahri", "Merwane", "Tata").pseudo, "Tat")
-        self.assertNotEqual(Utilisatrices("Bentahri", "Merwane", "Tata").pseudo, 42)
+        self.assertNotEqual(Utilisatrices("Bentahri", "Merwane", "Tata").pseudo(), 42)
 
     def test_sauvegarde_utilisateur(self):
         self.assertTrue(str(type(Utilisateurs('tom', 'tim', 'TOTO145').sauvegarde_utilisateur)), "_csv.writer")
@@ -287,22 +282,22 @@ class testJeu(unittest.TestCase):
     def test_creation_Jeu(self):
         jeu = Jeu("Namurois", "Thomas", "toto")
 
-        self.assertEqual(type(jeu.nom), type(""))
-        self.assertNotEqual(type(jeu.nom), type(42))
-        self.assertEqual(type(jeu.prenom), type(""))
-        self.assertNotEqual(type(jeu.prenom), type(42))
-        self.assertEqual(type(jeu.pseudo), type(""))
-        self.assertNotEqual(type(jeu.pseudo), type(42))
+        self.assertEqual(type(jeu.nom()), type(""))
+        self.assertNotEqual(type(jeu.nom()), type(42))
+        self.assertEqual(type(jeu.prenom()), type(""))
+        self.assertNotEqual(type(jeu.prenom()), type(42))
+        self.assertEqual(type(jeu.pseudo()), type(""))
+        self.assertNotEqual(type(jeu.pseudo()), type(42))
 
-        self.assertEqual(jeu.nom, "Namurois")
-        self.assertNotEqual(jeu.nom, "Namuroi")
-        self.assertNotEqual(jeu.nom, 42)
-        self.assertEqual(jeu.prenom, "Thomas")
-        self.assertNotEqual(jeu.prenom, "Thoma")
-        self.assertNotEqual(jeu.prenom, 42)
-        self.assertEqual(jeu.pseudo, "toto")
-        self.assertNotEqual(jeu.pseudo, "tot")
-        self.assertNotEqual(jeu.pseudo, 42)
+        self.assertEqual(jeu.nom(), "Namurois")
+        self.assertNotEqual(jeu.nom(), "Namuroi")
+        self.assertNotEqual(jeu.nom(), 42)
+        self.assertEqual(jeu.prenom(), "Thomas")
+        self.assertNotEqual(jeu.prenom(), "Thoma")
+        self.assertNotEqual(jeu.prenom(), 42)
+        self.assertEqual(jeu.pseudo(), "toto")
+        self.assertNotEqual(jeu.pseudo(), "tot")
+        self.assertNotEqual(jeu.pseudo(), 42)
 
     def test_type_affichage(self):
         self.assertEqual(type(Jeu("Namurois", "Thomas", "toto").affichage()), type(""))
