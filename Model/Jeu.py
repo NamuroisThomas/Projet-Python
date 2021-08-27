@@ -17,7 +17,7 @@ class Jeu(Partie, Utilisateurs):
         return "Bon Jeu à vous"
 
     def utilisateur(self):
-        return self.pseudo
+        return self.pseudo()
 
     def tableau_question_partie(self):
         return self.__partie.tableauquestion()
