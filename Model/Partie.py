@@ -16,7 +16,7 @@ class Partie:
        POST: affiche une message au commencement de partie.
         """
 
-        print("Bonne Partie à vous")
+        return "Bonne Partie à vous"
 
     def theme(self):
 

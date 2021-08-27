@@ -6,9 +6,7 @@ class Jeu(Partie, Utilisateurs):
 
     def __init__(self, nom: str, prenom: str, pseudo: str):
         Utilisateurs.__init__(self, nom, prenom, pseudo)
-
         self.__partie = Partie()
-        self.__score = 0
 
     def affichage(self):
         """
@@ -16,7 +14,7 @@ class Jeu(Partie, Utilisateurs):
               PRE: -
               POST: affiche un message au commencement du Jeu
                """
-        print("Bonne Jeu à vous")
+        return "Bon Jeu à vous"
 
     def utilisateur(self):
         return self.pseudo

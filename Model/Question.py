@@ -32,12 +32,12 @@ class Question:
 
         except FileNotFoundError:
             print('Fichier introuvable.')
-            ErreurCustomiser('FileNotFoundError').gestion_erreur('FileNotFoundError')
+            ErreurCustomiser('FileNotFoundError').gestion_erreur()
 
 
 
         except IOError:
             print('Erreur IO.')
-            ErreurCustomiser('Erreur IO.').gestion_erreur('Erreur IO.')
+            ErreurCustomiser('Erreur IO.').gestion_erreur()
 
         return question
